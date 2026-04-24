@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://c47chb3l8h3fm" path="res://Scene/Sobe/RoomManager.cs" id="1_4r1sy"]
 [ext_resource type="Texture2D" uid="uid://3ay75um6pb1u" path="res://Asseti/sOBNI/Zidovi/soba/download.jpg" id="2_gp62x"]
 [ext_resource type="PackedScene" uid="uid://qiqsr2fkxltx" path="res://Scene/Sobe/Inventar.tscn" id="3_inventory"]
+[ext_resource type="PackedScene" uid="uid://bmfl5d444fgis" path="res://Scene/Karakteri/Igrac/karakterbaza.tscn" id="4_gp62x"]
 
 [node name="SobaBaza" type="Node2D" unique_id=1083995744]
 script = ExtResource("1_4r1sy")
@@ -24,3 +25,7 @@ offset_bottom = 44.0
 text = "Inventory"
 
 [node name="Inventar" parent="." unique_id=2095010816 instance=ExtResource("3_inventory")]
+
+[node name="Karakterbaza" parent="." unique_id=1265704113 instance=ExtResource("4_gp62x")]
+position = Vector2(678, 349)
+scale = Vector2(3, 3)

@@ -1,0 +1,303 @@
+[gd_scene format=3 uid="uid://bcwacvgkb3qyu"]
+
+[ext_resource type="Texture2D" uid="uid://dica0j60m4m8r" path="res://Asseti/VelikeScene/Univerzitet.png" id="1_bcc6l"]
+[ext_resource type="Texture2D" uid="uid://b06fj0ln66f08" path="res://Asseti/Karakteri/Igrac/16x16 Walk Cycle-Sheet.png" id="2_kw8qd"]
+[ext_resource type="Texture2D" uid="uid://cj7edck31hoy7" path="res://Asseti/Karakteri/profesor/birdviewPorf.png" id="3_7pure"]
+[ext_resource type="Texture2D" uid="uid://c6wdxrobicut6" path="res://Asseti/Asseti/Emotes/bubble emotes july update.png" id="4_u1638"]
+[ext_resource type="Texture2D" uid="uid://c7o3kgvugh7kp" path="res://Asseti/Karakteri/profesor/CapriProfBezPozadine.png" id="5_0tl4q"]
+
+[sub_resource type="Animation" id="Animation_kw8qd"]
+resource_name = "CutScenaUvodna"
+length = 15.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Igrac:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.5, 0.6, 0.70000005, 0.8, 0.90000004, 1, 1.1, 1.2, 1.3, 1.5, 1.6, 1.7, 1.8, 1.9000001, 2, 2.1, 2.2, 2.3, 2.5, 2.6, 2.7, 2.8, 2.9, 3, 3.1, 3.2, 3.3, 3.5, 3.6, 4, 4.1, 4.2000003, 4.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11, 8, 8, 9, 10, 11, 8, 9, 10, 11, 8, 8, 9, 10, 11, 8, 9, 10, 11, 8, 8, 9, 10, 11, 8, 9, 10, 11, 8, 8, 7, 7, 6, 2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.41, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(318, 599), Vector2(318, 599), Vector2(735, 604)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Igrac:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(58, 715), Vector2(750, 715)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ProfOxi/Emote:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(4.1, 4.2000003, 4.3, 4.61, 4.7100005, 5.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [111, 112, 113, 111, 112, 113]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ProfOxi/Emote:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 4.1, 5.7749605),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ProfOxi/ProfOxiPrica:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 4.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ProfOxi/ProfOxiPrica:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(4.5),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, 2)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("ProfOxi/ProfOxiPrica:frame")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(8, 8.1, 8.2, 8.3, 8.400001, 8.6, 8.700001, 8.8, 8.900001, 9.000001),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 0, 1, 2, 3, 4]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("ProfOxi/ProfOxiPrica:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(4.5, 7.933933),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(944.1173, 35.2942), Vector2(-811.7645, 29.411848)]
+}
+
+[sub_resource type="Animation" id="Animation_7pure"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Igrac:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(318, 599)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Igrac:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(58, 715)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ProfOxi/Emote:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [110]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ProfOxi/Emote:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ProfOxi/ProfOxiPrica:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ProfOxi/ProfOxiPrica:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("ProfOxi/ProfOxiPrica:frame")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("ProfOxi/ProfOxiPrica:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1332.3527, 32.352844)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u1638"]
+_data = {
+&"CutScenaUvodna": SubResource("Animation_kw8qd"),
+&"RESET": SubResource("Animation_7pure")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_0tl4q"]
+font_size = 73
+outline_size = 9
+outline_color = Color(0, 0, 0, 1)
+
+[node name="UvodnaCutScena1" type="Node2D" unique_id=980772965]
+
+[node name="Pozadina" type="Sprite2D" parent="." unique_id=1832908640]
+position = Vector2(671, 391)
+texture = ExtResource("1_bcc6l")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=175449194]
+libraries/ = SubResource("AnimationLibrary_u1638")
+autoplay = &"CutScenaUvodna"
+
+[node name="Igrac" type="Sprite2D" parent="." unique_id=304108533]
+position = Vector2(58, 715)
+scale = Vector2(2, 2)
+texture = ExtResource("2_kw8qd")
+flip_h = true
+hframes = 4
+vframes = 5
+frame = 8
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2028614542]
+position = Vector2(318, 599)
+
+[node name="ProfOxi" type="Sprite2D" parent="." unique_id=1914809131]
+position = Vector2(793, 698)
+scale = Vector2(0.34, 0.34)
+texture = ExtResource("3_7pure")
+
+[node name="Emote" type="Sprite2D" parent="ProfOxi" unique_id=1356452452]
+visible = false
+position = Vector2(35.294117, -102.94118)
+scale = Vector2(5.945, 5.945)
+texture = ExtResource("4_u1638")
+hframes = 12
+vframes = 13
+frame = 110
+
+[node name="ProfOxiPrica" type="Sprite2D" parent="ProfOxi" unique_id=145707084]
+visible = false
+position = Vector2(-1332.3527, 32.352844)
+texture = ExtResource("5_0tl4q")
+hframes = 6
+frame = 1
+
+[node name="PrviText" type="Label" parent="ProfOxi" unique_id=91186543]
+offset_left = -638.23535
+offset_top = -129.41174
+offset_right = 747.0586
+offset_bottom = 238.23535
+text = "Selam Alejkum dosao si da naucis nesto novo svi ucenici zeljni znanja su i vise nego dobrodosli kod nas!"
+label_settings = SubResource("LabelSettings_0tl4q")
+autowrap_mode = 3
+
+[node name="DrugiText" type="Label" parent="ProfOxi" unique_id=476562764]
+offset_left = -638.23535
+offset_top = -129.41174
+offset_right = 747.0586
+offset_bottom = 238.23535
+text = "Selam Alejkum dosao si da naucis nesto novo svi ucenici zeljni znanja su i vise nego dobrodosli kod nas!"
+label_settings = SubResource("LabelSettings_0tl4q")
+autowrap_mode = 3
