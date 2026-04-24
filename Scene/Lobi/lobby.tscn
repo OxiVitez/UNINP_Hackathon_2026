@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://r6hthyryknmk"]
+
+[node name="Lobby" type="Node2D" unique_id=1608075638]
+
+[node name="Background" type="Sprite2D" parent="." unique_id=928153775]
+scale = Vector2(1150, 646)
+
+[node name="Board1" type="TextureButton" parent="." unique_id=33579938]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Board2" type="TextureButton" parent="." unique_id=1933461662]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Board3" type="TextureButton" parent="." unique_id=712282810]
+offset_left = 693.0
+offset_top = 215.0
+offset_right = 733.0
+offset_bottom = 255.0
+
+[node name="UIPopup" type="Panel" parent="." unique_id=608285736]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Leaderboard" type="Label" parent="UIPopup" unique_id=1837419791]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="CloseButton" type="TextureButton" parent="UIPopup" unique_id=1273400130]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
