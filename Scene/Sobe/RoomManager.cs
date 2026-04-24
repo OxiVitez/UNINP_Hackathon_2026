@@ -4,13 +4,6 @@ using System.Collections.Generic;
 
 public partial class RoomManager : Node2D
 {
-    private sealed class InventoryItem
-    {
-        public string ObjectType { get; set; } = string.Empty;
-        public string TexturePath { get; set; } = string.Empty;
-        public Vector2I SizeInTiles { get; set; } = Vector2I.One;
-    }
-
     [Export] public TileMapLayer BaseGridLayer;
     [Export] public Node2D ObjectsContainer;
     [Export] public Vector2I CellSize = new(16, 16);
@@ -18,12 +11,16 @@ public partial class RoomManager : Node2D
     [Export] public string ActivePlayerId = "player_1";
 
     private readonly HashSet<Vector2I> _occupiedTiles = new();
-    private readonly List<InventoryItem> _inventoryItems = new();
-    private int _selectedItemIndex;
-    private Label _inventoryLabel;
-    private CanvasLayer _inventoryCanvasLayer;
+    private InventoryPanel _inventoryPanel;
+    private Button _inventoryButton;
     private TextureRect _dragPreview;
     private bool _isDraggingFromInventory;
+    private string _dragObjectType = string.Empty;
+    private string _dragTexturePath = string.Empty;
+    private Vector2I _dragSizeInTiles = Vector2I.One;
+    private Node2D _draggedPlacedNode;
+    private Vector2I _draggedOriginalGrid;
+    private Vector2I _draggedSize = Vector2I.One;
 
     public override void _Ready()
     {
@@ -42,19 +39,48 @@ public partial class RoomManager : Node2D
             BaseGridLayer = GetNodeOrNull<TileMapLayer>("TileMapLayer");
         }
 
-        // TileMapLayer uses a TileSet. Enforce the requested 16x16 base cell size when available.
         if (BaseGridLayer?.TileSet != null)
         {
             BaseGridLayer.TileSet.TileSize = CellSize;
         }
 
-        SetupInventory();
-        BuildInventoryUi();
+        _inventoryPanel = GetNodeOrNull<InventoryPanel>("Inventar");
+        if (_inventoryPanel != null)
+        {
+            _inventoryPanel.SetPlayer(ActivePlayerId);
+            _inventoryPanel.DragRequested += StartInventoryDrag;
+        }
+
+        _inventoryButton = GetNodeOrNull<Button>("InventoryButton");
+        if (_inventoryButton != null)
+        {
+            _inventoryButton.Pressed += () => _inventoryPanel?.ToggleVisibility();
+        }
+
+        _dragPreview = new TextureRect
+        {
+            Visible = false,
+            MouseFilter = Control.MouseFilterEnum.Ignore,
+            ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
+            StretchMode = TextureRect.StretchModeEnum.Scale,
+            Modulate = new Color(1f, 1f, 1f, 0.75f),
+            ZIndex = 1000
+        };
+        AddChild(_dragPreview);
+
         RebuildOccupiedTiles();
     }
 
     public override void _Input(InputEvent @event)
     {
+        if (@event is InputEventMouseButton pressedEvent &&
+            pressedEvent.Pressed &&
+            pressedEvent.ButtonIndex == MouseButton.Left &&
+            !_isDraggingFromInventory)
+        {
+            TryStartPlacedItemDrag();
+        }
+
         if (@event is InputEventMouseButton mouseEvent &&
             !mouseEvent.Pressed &&
             mouseEvent.ButtonIndex == MouseButton.Left &&
@@ -62,6 +88,14 @@ public partial class RoomManager : Node2D
         {
             TryPlaceDraggedItemAtMouse();
             EndInventoryDrag();
+        }
+
+        if (@event is InputEventMouseButton releaseEvent &&
+            !releaseEvent.Pressed &&
+            releaseEvent.ButtonIndex == MouseButton.Left &&
+            _draggedPlacedNode != null)
+        {
+            EndPlacedItemDrag();
         }
     }
 
@@ -72,13 +106,31 @@ public partial class RoomManager : Node2D
             var mousePos = GetViewport().GetMousePosition();
             _dragPreview.Position = mousePos - (_dragPreview.Size / 2.0f);
         }
+
+        if (_draggedPlacedNode != null)
+        {
+            _draggedPlacedNode.GlobalPosition = GetSnappedPosition(GetGlobalMousePosition(), _draggedSize);
+        }
     }
 
     public override void _UnhandledInput(InputEvent @event)
     {
         if (@event is InputEventKey keyEvent && keyEvent.Pressed && !keyEvent.Echo)
         {
-            HandleHotkeys(keyEvent.Keycode);
+            switch (keyEvent.Keycode)
+            {
+                case Key.I:
+                    _inventoryPanel?.ToggleVisibility();
+                    break;
+                case Key.F5:
+                    SaveRoom(ActivePlayerId);
+                    GD.Print($"Room saved for '{ActivePlayerId}'.");
+                    break;
+                case Key.F9:
+                    LoadRoom(ActivePlayerId);
+                    GD.Print($"Room loaded for '{ActivePlayerId}'.");
+                    break;
+            }
         }
 
         if (@event is InputEventMouseButton mouseEvent &&
@@ -96,8 +148,6 @@ public partial class RoomManager : Node2D
             Mathf.Round(globalPos.X / CellSize.X) * CellSize.X,
             Mathf.Round(globalPos.Y / CellSize.Y) * CellSize.Y
         );
-
-        // Most Node2D content (Sprite2D) has centered pivot. Shift to the center of occupied grid area.
         var halfSize = new Vector2(sizePixels.X / 2.0f, sizePixels.Y / 2.0f);
         return snappedTopLeft + halfSize;
     }
@@ -142,7 +192,6 @@ public partial class RoomManager : Node2D
         }
 
         var roomData = new RoomData { PlayerID = playerId };
-
         foreach (var child in ObjectsContainer.GetChildren())
         {
             if (child is not Node2D node)
@@ -170,7 +219,6 @@ public partial class RoomManager : Node2D
         var roomDictionary = roomData.ToDictionary();
         var jsonText = Json.Stringify(roomDictionary, "\t");
         var savePath = GetRoomFilePath(playerId);
-
         using var file = FileAccess.Open(savePath, FileAccess.ModeFlags.Write);
         file.StoreString(jsonText);
     }
@@ -185,6 +233,7 @@ public partial class RoomManager : Node2D
 
         ClearObjectsContainer();
         _occupiedTiles.Clear();
+        _inventoryPanel?.SetPlayer(playerId);
 
         var savePath = GetRoomFilePath(playerId);
         if (!FileAccess.FileExists(savePath))
@@ -195,7 +244,6 @@ public partial class RoomManager : Node2D
 
         using var file = FileAccess.Open(savePath, FileAccess.ModeFlags.Read);
         var jsonText = file.GetAsText();
-
         var parseResult = Json.ParseString(jsonText);
         if (parseResult.VariantType != Variant.Type.Dictionary)
         {
@@ -204,7 +252,6 @@ public partial class RoomManager : Node2D
         }
 
         var roomData = RoomData.FromDictionary(parseResult.AsGodotDictionary());
-
         foreach (var entry in roomData.Objects)
         {
             var node = InstantiateObjectForType(entry.ObjectType, entry.SizeInTiles);
@@ -213,8 +260,7 @@ public partial class RoomManager : Node2D
                 continue;
             }
 
-            var position = GridToWorld(entry.GridPosition, entry.SizeInTiles);
-            node.GlobalPosition = position;
+            node.GlobalPosition = GridToWorld(entry.GridPosition, entry.SizeInTiles);
             node.SetMeta("ObjectType", entry.ObjectType);
             node.SetMeta("GridPosition", entry.GridPosition);
             node.SetMeta("SizeInTiles", entry.SizeInTiles);
@@ -224,54 +270,103 @@ public partial class RoomManager : Node2D
         }
     }
 
-    private void HandleHotkeys(Key keycode)
+    private void StartInventoryDrag(string objectType, Vector2I sizeInTiles, string texturePath)
     {
-        switch (keycode)
+        if (_dragPreview == null)
         {
-            case Key.Key1:
-                SelectInventoryItem(0);
-                break;
-            case Key.Key2:
-                SelectInventoryItem(1);
-                break;
-            case Key.Key3:
-                SelectInventoryItem(2);
-                break;
-            case Key.Key4:
-                SelectInventoryItem(3);
-                break;
-            case Key.Tab:
-                SelectInventoryItem((_selectedItemIndex + 1) % _inventoryItems.Count);
-                break;
-            case Key.F5:
-                SaveRoom(ActivePlayerId);
-                GD.Print($"Room saved for '{ActivePlayerId}'.");
-                break;
-            case Key.F9:
-                LoadRoom(ActivePlayerId);
-                GD.Print($"Room loaded for '{ActivePlayerId}'.");
-                break;
+            return;
         }
+
+        _dragObjectType = objectType;
+        _dragSizeInTiles = sizeInTiles;
+        _dragTexturePath = texturePath;
+
+        var texture = GD.Load<Texture2D>(_dragTexturePath);
+        if (texture == null)
+        {
+            GD.PushError($"Inventory texture missing: {_dragTexturePath}");
+            return;
+        }
+
+        _dragPreview.Texture = texture;
+        _dragPreview.Size = new Vector2(_dragSizeInTiles.X * CellSize.X, _dragSizeInTiles.Y * CellSize.Y);
+        _dragPreview.Visible = true;
+        _isDraggingFromInventory = true;
+    }
+
+    private void EndInventoryDrag()
+    {
+        _isDraggingFromInventory = false;
+        if (_dragPreview != null)
+        {
+            _dragPreview.Visible = false;
+            _dragPreview.Texture = null;
+        }
+        _dragObjectType = string.Empty;
+        _dragTexturePath = string.Empty;
+        _dragSizeInTiles = Vector2I.One;
     }
 
     private void TryPlaceDraggedItemAtMouse()
     {
-        if (_inventoryItems.Count == 0)
+        if (string.IsNullOrWhiteSpace(_dragObjectType))
         {
-            GD.PushError("Inventory is empty.");
             return;
         }
 
-        var selectedItem = _inventoryItems[_selectedItemIndex];
-        var mousePosition = GetGlobalMousePosition();
-        var node = InstantiateObjectForType(selectedItem.ObjectType, selectedItem.SizeInTiles);
+        var node = InstantiateObjectForType(_dragObjectType, _dragSizeInTiles);
         if (node == null)
         {
-            GD.PushError($"Could not instantiate object type '{selectedItem.ObjectType}'.");
             return;
         }
 
-        PlaceObject(node, selectedItem.ObjectType, mousePosition, selectedItem.SizeInTiles, ActivePlayerId);
+        PlaceObject(node, _dragObjectType, GetGlobalMousePosition(), _dragSizeInTiles, ActivePlayerId);
+    }
+
+    private void TryStartPlacedItemDrag()
+    {
+        var mouseGrid = WorldToGrid(GetGlobalMousePosition());
+        var placedNode = FindPlacedNodeAtGrid(mouseGrid);
+        if (placedNode == null)
+        {
+            return;
+        }
+
+        _draggedPlacedNode = placedNode;
+        _draggedOriginalGrid = placedNode.HasMeta("GridPosition")
+            ? (Vector2I)placedNode.GetMeta("GridPosition")
+            : WorldToGrid(placedNode.GlobalPosition);
+        _draggedSize = placedNode.HasMeta("SizeInTiles")
+            ? (Vector2I)placedNode.GetMeta("SizeInTiles")
+            : Vector2I.One;
+        UnmarkOccupied(_draggedOriginalGrid, _draggedSize);
+    }
+
+    private void EndPlacedItemDrag()
+    {
+        if (_draggedPlacedNode == null)
+        {
+            return;
+        }
+
+        var snappedPosition = GetSnappedPosition(GetGlobalMousePosition(), _draggedSize);
+        var newGrid = GetGridPositionFromSnapped(snappedPosition, _draggedSize);
+        if (CanPlaceAt(newGrid, _draggedSize))
+        {
+            _draggedPlacedNode.GlobalPosition = snappedPosition;
+            _draggedPlacedNode.SetMeta("GridPosition", newGrid);
+            MarkOccupied(newGrid, _draggedSize);
+        }
+        else
+        {
+            _draggedPlacedNode.GlobalPosition = GridToWorld(_draggedOriginalGrid, _draggedSize);
+            _draggedPlacedNode.SetMeta("GridPosition", _draggedOriginalGrid);
+            MarkOccupied(_draggedOriginalGrid, _draggedSize);
+        }
+
+        _draggedPlacedNode = null;
+        _draggedSize = Vector2I.One;
+        _draggedOriginalGrid = Vector2I.Zero;
     }
 
     private Node2D InstantiateObjectForType(string objectType, Vector2I sizeInTiles)
@@ -289,35 +384,51 @@ public partial class RoomManager : Node2D
             return node;
         }
 
-        var marker = new ColorRect
-        {
-            Color = new Color(0.2f, 0.75f, 1.0f, 0.65f),
-            Size = new Vector2(sizeInTiles.X * CellSize.X, sizeInTiles.Y * CellSize.Y),
-            Position = new Vector2(
-                -(sizeInTiles.X * CellSize.X) / 2.0f,
-                -(sizeInTiles.Y * CellSize.Y) / 2.0f
-            )
-        };
-        node.AddChild(marker);
         return node;
+    }
+
+    private Sprite2D BuildItemSprite(string objectType, Vector2I sizeInTiles)
+    {
+        var texturePath = GetTexturePathForObjectType(objectType);
+        if (string.IsNullOrWhiteSpace(texturePath))
+        {
+            return null;
+        }
+
+        var texture = GD.Load<Texture2D>(texturePath);
+        if (texture == null)
+        {
+            return null;
+        }
+
+        var sprite = new Sprite2D { Texture = texture, Centered = true };
+        var targetSize = new Vector2(sizeInTiles.X * CellSize.X, sizeInTiles.Y * CellSize.Y);
+        if (texture.GetSize().X > 0 && texture.GetSize().Y > 0)
+        {
+            sprite.Scale = new Vector2(targetSize.X / texture.GetSize().X, targetSize.Y / texture.GetSize().Y);
+        }
+        return sprite;
+    }
+
+    private string GetTexturePathForObjectType(string objectType)
+    {
+        if (_inventoryPanel != null && _inventoryPanel.TryGetTexturePath(objectType, out var mappedPath))
+        {
+            return mappedPath;
+        }
+        return string.Empty;
     }
 
     private Vector2I GetGridPositionFromSnapped(Vector2 snappedPosition, Vector2I sizeInTiles)
     {
         var halfSize = new Vector2(sizeInTiles.X * CellSize.X / 2.0f, sizeInTiles.Y * CellSize.Y / 2.0f);
         var topLeft = snappedPosition - halfSize;
-        return new Vector2I(
-            Mathf.RoundToInt(topLeft.X / CellSize.X),
-            Mathf.RoundToInt(topLeft.Y / CellSize.Y)
-        );
+        return new Vector2I(Mathf.RoundToInt(topLeft.X / CellSize.X), Mathf.RoundToInt(topLeft.Y / CellSize.Y));
     }
 
     private Vector2I WorldToGrid(Vector2 worldPosition)
     {
-        return new Vector2I(
-            Mathf.RoundToInt(worldPosition.X / CellSize.X),
-            Mathf.RoundToInt(worldPosition.Y / CellSize.Y)
-        );
+        return new Vector2I(Mathf.RoundToInt(worldPosition.X / CellSize.X), Mathf.RoundToInt(worldPosition.Y / CellSize.Y));
     }
 
     private Vector2 GridToWorld(Vector2I gridPosition, Vector2I sizeInTiles)
@@ -349,14 +460,12 @@ public partial class RoomManager : Node2D
         {
             for (var y = 0; y < sizeInTiles.Y; y++)
             {
-                var tile = new Vector2I(gridPosition.X + x, gridPosition.Y + y);
-                if (_occupiedTiles.Contains(tile))
+                if (_occupiedTiles.Contains(new Vector2I(gridPosition.X + x, gridPosition.Y + y)))
                 {
                     return false;
                 }
             }
         }
-
         return true;
     }
 
@@ -392,222 +501,10 @@ public partial class RoomManager : Node2D
                 continue;
             }
 
-            var gridPosition = node.HasMeta("GridPosition")
-                ? (Vector2I)node.GetMeta("GridPosition")
-                : WorldToGrid(node.GlobalPosition);
-            var sizeInTiles = node.HasMeta("SizeInTiles")
-                ? (Vector2I)node.GetMeta("SizeInTiles")
-                : Vector2I.One;
-
+            var gridPosition = node.HasMeta("GridPosition") ? (Vector2I)node.GetMeta("GridPosition") : WorldToGrid(node.GlobalPosition);
+            var sizeInTiles = node.HasMeta("SizeInTiles") ? (Vector2I)node.GetMeta("SizeInTiles") : Vector2I.One;
             MarkOccupied(gridPosition, sizeInTiles);
         }
-    }
-
-    private void SetupInventory()
-    {
-        _inventoryItems.Clear();
-        _inventoryItems.Add(new InventoryItem
-        {
-            ObjectType = "Test_1x1",
-            TexturePath = "res://Asseti/sOBNI/test.png",
-            SizeInTiles = new Vector2I(1, 1)
-        });
-        _inventoryItems.Add(new InventoryItem
-        {
-            ObjectType = "Test_2x2",
-            TexturePath = "res://Asseti/sOBNI/test.png",
-            SizeInTiles = new Vector2I(2, 2)
-        });
-        _inventoryItems.Add(new InventoryItem
-        {
-            ObjectType = "Test_4x4",
-            TexturePath = "res://Asseti/sOBNI/test.png",
-            SizeInTiles = new Vector2I(4, 4)
-        });
-        _inventoryItems.Add(new InventoryItem
-        {
-            ObjectType = "Test_8x8",
-            TexturePath = "res://Asseti/sOBNI/test.png",
-            SizeInTiles = new Vector2I(8, 8)
-        });
-
-        _selectedItemIndex = 0;
-    }
-
-    private void BuildInventoryUi()
-    {
-        _inventoryCanvasLayer = new CanvasLayer { Name = "InventoryUI" };
-        AddChild(_inventoryCanvasLayer);
-
-        var panel = new PanelContainer();
-        panel.SetAnchorsPreset(Control.LayoutPreset.TopLeft);
-        panel.Position = new Vector2(12, 12);
-        panel.Size = new Vector2(420, 150);
-        _inventoryCanvasLayer.AddChild(panel);
-
-        var vbox = new VBoxContainer();
-        panel.AddChild(vbox);
-
-        _inventoryLabel = new Label();
-        vbox.AddChild(_inventoryLabel);
-
-        var hintLabel = new Label
-        {
-            Text = "Drag iz inventory na grid | Right click: remove | 1-4/Tab select | F5 save | F9 load"
-        };
-        vbox.AddChild(hintLabel);
-
-        var slots = new HBoxContainer();
-        vbox.AddChild(slots);
-
-        for (var i = 0; i < _inventoryItems.Count; i++)
-        {
-            var localIndex = i;
-            var item = _inventoryItems[i];
-            var slot = new PanelContainer
-            {
-                CustomMinimumSize = new Vector2(88, 88)
-            };
-            var textureRect = new TextureRect
-            {
-                ExpandMode = TextureRect.ExpandModeEnum.FitWidthProportional,
-                StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered,
-                CustomMinimumSize = new Vector2(80, 80),
-                MouseFilter = Control.MouseFilterEnum.Stop,
-                TooltipText = $"{item.ObjectType} ({item.SizeInTiles.X}x{item.SizeInTiles.Y})"
-            };
-            textureRect.Texture = GD.Load<Texture2D>(item.TexturePath);
-            textureRect.GuiInput += (InputEvent ev) => OnInventorySlotGuiInput(localIndex, ev);
-            slot.AddChild(textureRect);
-            slots.AddChild(slot);
-        }
-
-        _dragPreview = new TextureRect
-        {
-            Visible = false,
-            MouseFilter = Control.MouseFilterEnum.Ignore,
-            ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
-            StretchMode = TextureRect.StretchModeEnum.Scale,
-            Modulate = new Color(1f, 1f, 1f, 0.75f),
-            ZIndex = 1000
-        };
-        _inventoryCanvasLayer.AddChild(_dragPreview);
-
-        UpdateInventoryLabel();
-    }
-
-    private void SelectInventoryItem(int index)
-    {
-        if (index < 0 || index >= _inventoryItems.Count)
-        {
-            return;
-        }
-
-        _selectedItemIndex = index;
-        UpdateInventoryLabel();
-        var item = _inventoryItems[_selectedItemIndex];
-        GD.Print($"Selected item: {item.ObjectType} ({item.SizeInTiles.X}x{item.SizeInTiles.Y} tiles)");
-    }
-
-    private void UpdateInventoryLabel()
-    {
-        if (_inventoryLabel == null || _inventoryItems.Count == 0)
-        {
-            return;
-        }
-
-        var item = _inventoryItems[_selectedItemIndex];
-        _inventoryLabel.Text = $"Selected: {item.ObjectType} ({item.SizeInTiles.X}x{item.SizeInTiles.Y})";
-    }
-
-    private void OnInventorySlotGuiInput(int index, InputEvent inputEvent)
-    {
-        if (inputEvent is not InputEventMouseButton mouseEvent)
-        {
-            return;
-        }
-
-        if (mouseEvent.ButtonIndex == MouseButton.Left && mouseEvent.Pressed)
-        {
-            SelectInventoryItem(index);
-            StartInventoryDrag(index);
-        }
-    }
-
-    private void StartInventoryDrag(int index)
-    {
-        if (index < 0 || index >= _inventoryItems.Count || _dragPreview == null)
-        {
-            return;
-        }
-
-        var item = _inventoryItems[index];
-        var texture = GD.Load<Texture2D>(item.TexturePath);
-        if (texture == null)
-        {
-            GD.PushError($"Inventory texture missing: {item.TexturePath}");
-            return;
-        }
-
-        _dragPreview.Texture = texture;
-        _dragPreview.Size = new Vector2(item.SizeInTiles.X * CellSize.X, item.SizeInTiles.Y * CellSize.Y);
-        _dragPreview.Visible = true;
-        _isDraggingFromInventory = true;
-    }
-
-    private void EndInventoryDrag()
-    {
-        _isDraggingFromInventory = false;
-        if (_dragPreview != null)
-        {
-            _dragPreview.Visible = false;
-            _dragPreview.Texture = null;
-        }
-    }
-
-    private Sprite2D BuildItemSprite(string objectType, Vector2I sizeInTiles)
-    {
-        var texturePath = GetTexturePathForObjectType(objectType);
-        if (string.IsNullOrWhiteSpace(texturePath))
-        {
-            return null;
-        }
-
-        var texture = GD.Load<Texture2D>(texturePath);
-        if (texture == null)
-        {
-            return null;
-        }
-
-        var sprite = new Sprite2D
-        {
-            Texture = texture,
-            Centered = true
-        };
-
-        var targetSize = new Vector2(sizeInTiles.X * CellSize.X, sizeInTiles.Y * CellSize.Y);
-        if (texture.GetSize().X > 0 && texture.GetSize().Y > 0)
-        {
-            sprite.Scale = new Vector2(
-                targetSize.X / texture.GetSize().X,
-                targetSize.Y / texture.GetSize().Y
-            );
-        }
-
-        return sprite;
-    }
-
-    private string GetTexturePathForObjectType(string objectType)
-    {
-        foreach (var item in _inventoryItems)
-        {
-            if (item.ObjectType == objectType)
-            {
-                return item.TexturePath;
-            }
-        }
-
-        return string.Empty;
     }
 
     private void TryRemoveObjectAtMouse()
@@ -619,13 +516,8 @@ public partial class RoomManager : Node2D
             return;
         }
 
-        var gridPosition = placedNode.HasMeta("GridPosition")
-            ? (Vector2I)placedNode.GetMeta("GridPosition")
-            : WorldToGrid(placedNode.GlobalPosition);
-        var sizeInTiles = placedNode.HasMeta("SizeInTiles")
-            ? (Vector2I)placedNode.GetMeta("SizeInTiles")
-            : Vector2I.One;
-
+        var gridPosition = placedNode.HasMeta("GridPosition") ? (Vector2I)placedNode.GetMeta("GridPosition") : WorldToGrid(placedNode.GlobalPosition);
+        var sizeInTiles = placedNode.HasMeta("SizeInTiles") ? (Vector2I)placedNode.GetMeta("SizeInTiles") : Vector2I.One;
         UnmarkOccupied(gridPosition, sizeInTiles);
         placedNode.QueueFree();
     }
@@ -639,13 +531,8 @@ public partial class RoomManager : Node2D
                 continue;
             }
 
-            var gridPosition = node.HasMeta("GridPosition")
-                ? (Vector2I)node.GetMeta("GridPosition")
-                : WorldToGrid(node.GlobalPosition);
-            var sizeInTiles = node.HasMeta("SizeInTiles")
-                ? (Vector2I)node.GetMeta("SizeInTiles")
-                : Vector2I.One;
-
+            var gridPosition = node.HasMeta("GridPosition") ? (Vector2I)node.GetMeta("GridPosition") : WorldToGrid(node.GlobalPosition);
+            var sizeInTiles = node.HasMeta("SizeInTiles") ? (Vector2I)node.GetMeta("SizeInTiles") : Vector2I.One;
             var insideX = grid.X >= gridPosition.X && grid.X < gridPosition.X + sizeInTiles.X;
             var insideY = grid.Y >= gridPosition.Y && grid.Y < gridPosition.Y + sizeInTiles.Y;
             if (insideX && insideY)
@@ -653,7 +540,6 @@ public partial class RoomManager : Node2D
                 return node;
             }
         }
-
         return null;
     }
 }
