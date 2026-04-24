@@ -11,7 +11,7 @@ public partial class ProfessorAI : CharacterBody2D  // bio Node, a scena je Char
     public Control chatPanel;
 
     private System.Net.Http.HttpClient httpClient = new System.Net.Http.HttpClient();
-    private string apiKey = "AIzaSyD7iSdmNQd2hfhzwodFkL7R2MqrF1g8Qxo";
+    private string apiKey = "";
 
     public override void _Ready()
     {
