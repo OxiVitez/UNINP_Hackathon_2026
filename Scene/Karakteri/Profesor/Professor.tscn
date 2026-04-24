@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://btd0rvtgqfwhs"]
+
+[ext_resource type="Script" uid="uid://cbbc6haoqnonp" path="res://Scene/Karakteri/Profesor/ProfessorAI.cs" id="1_5n0ik"]
+[ext_resource type="Texture2D" uid="uid://dliaylu87e6su" path="res://Asseti/Karakteri/Igrac/16x16 Idle-Sheet-export.png" id="2_2t18v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yx0hs"]
+size = Vector2(12, 16)
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=791271058]
+script = ExtResource("1_5n0ik")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=783330095]
+texture = ExtResource("2_2t18v")
+hframes = 4
+vframes = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1236575779]
+shape = SubResource("RectangleShape2D_yx0hs")
+
+[node name="Label" type="Label" parent="." unique_id=926979880]
+offset_left = 2.0
+offset_top = 81.0
+offset_right = 42.0
+offset_bottom = 104.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=916704899]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=498719203]
+
+[node name="ChatPanel" type="Control" parent="CanvasLayer" unique_id=1534521102]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Panel" type="Panel" parent="CanvasLayer/ChatPanel" unique_id=242476773]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="textProfesor" type="RichTextLabel" parent="CanvasLayer/ChatPanel" unique_id=164966378]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="playerInput" type="LineEdit" parent="CanvasLayer/ChatPanel" unique_id=398318472]
+layout_mode = 0
+offset_right = 68.5
+offset_bottom = 31.0
+
+[node name="SendButton" type="Button" parent="CanvasLayer/ChatPanel" unique_id=1946640817]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="closeButton" type="Button" parent="CanvasLayer/ChatPanel" unique_id=244388693]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0

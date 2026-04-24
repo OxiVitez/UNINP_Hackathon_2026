@@ -1,26 +1,38 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://qiqsr2fkxltx"]
 
-[ext_resource type="Script" path="res://Scene/Sobe/InventoryPanel.cs" id="1_inventory"]
+[ext_resource type="Script" uid="uid://dfcm1nk53vgd1" path="res://Scene/Sobe/InventoryPanel.cs" id="1_inventory"]
+[ext_resource type="Texture2D" uid="uid://dobhw7431pvfg" path="res://Asseti/Asseti/Inventar/inv.png" id="2_ldrwn"]
 
-[node name="Inventar" type="CanvasLayer"]
+[node name="Inventar" type="CanvasLayer" unique_id=767451533]
 script = ExtResource("1_inventory")
 
-[node name="Panel" type="PanelContainer" parent="."]
+[node name="Panel" type="PanelContainer" parent="." unique_id=1977099351]
 offset_left = 12.0
 offset_top = 52.0
 offset_right = 472.0
 offset_bottom = 232.0
+scale = Vector2(0.665, 0.665)
 
-[node name="VBox" type="VBoxContainer" parent="Panel"]
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 448.0
-offset_bottom = 168.0
+[node name="Sprite2D" type="Sprite2D" parent="Panel" unique_id=1927181840]
+position = Vector2(235.00003, 83.999985)
+scale = Vector2(0.2993281, 0.3125)
+texture = ExtResource("2_ldrwn")
 
-[node name="Title" type="Label" parent="Panel/VBox"]
-text = "Inventory"
+[node name="VBox" type="VBoxContainer" parent="Panel" unique_id=892167391]
+layout_mode = 2
 
-[node name="Hint" type="Label" parent="Panel/VBox"]
-text = "Prevuci item na grid | Right click: remove | F5 save | F9 load"
+[node name="TopSpacer" type="Control" parent="Panel/VBox" unique_id=1785070548]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
 
-[node name="Slots" type="HBoxContainer" parent="Panel/VBox"]
+[node name="HintSpacer" type="Control" parent="Panel/VBox" unique_id=1732106834]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+
+[node name="SlotsContainer" type="ScrollContainer" parent="Panel/VBox" unique_id=65062195]
+custom_minimum_size = Vector2(430, 96)
+layout_mode = 2
+vertical_scroll_mode = 0
+
+[node name="Slots" type="HBoxContainer" parent="Panel/VBox/SlotsContainer" unique_id=748442370]
+layout_mode = 2
