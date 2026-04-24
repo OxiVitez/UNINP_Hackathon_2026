@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c47chb3l8h3fm" path="res://Scene/Sobe/RoomManager.cs" id="1_4r1sy"]
 [ext_resource type="Texture2D" uid="uid://3ay75um6pb1u" path="res://Asseti/sOBNI/Zidovi/soba/download.jpg" id="2_gp62x"]
-[ext_resource type="PackedScene" path="res://Scene/Sobe/Inventar.tscn" id="3_inventory"]
+[ext_resource type="PackedScene" uid="uid://qiqsr2fkxltx" path="res://Scene/Sobe/Inventar.tscn" id="3_inventory"]
 
 [node name="SobaBaza" type="Node2D" unique_id=1083995744]
 script = ExtResource("1_4r1sy")
@@ -10,17 +10,18 @@ script = ExtResource("1_4r1sy")
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1344247181]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1732298797]
-position = Vector2(561, 308)
-scale = Vector2(6.533864, 4.835821)
+position = Vector2(560.99994, 304.5)
+scale = Vector2(6.534, 5.106)
 texture = ExtResource("2_gp62x")
 
 [node name="ObjectsContainer" type="Node2D" parent="." unique_id=428441009]
+position = Vector2(0, 2)
 
-[node name="InventoryButton" type="Button" parent="."]
+[node name="InventoryButton" type="Button" parent="." unique_id=524854685]
 offset_left = 12.0
 offset_top = 12.0
 offset_right = 132.0
 offset_bottom = 44.0
 text = "Inventory"
 
-[node name="Inventar" parent="." instance=ExtResource("3_inventory")]
+[node name="Inventar" parent="." unique_id=2051687320 instance=ExtResource("3_inventory")]
