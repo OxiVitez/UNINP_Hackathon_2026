@@ -1,8 +1,7 @@
 [gd_scene format=3 uid="uid://bxhe4bckh7eas"]
 
-[ext_resource type="Script" path="res://Scene/Sobe/RoomManager.cs" id="1_4r1sy"]
+[ext_resource type="Script" uid="uid://c47chb3l8h3fm" path="res://Scene/Sobe/RoomManager.cs" id="1_4r1sy"]
 [ext_resource type="Texture2D" uid="uid://3ay75um6pb1u" path="res://Asseti/sOBNI/Zidovi/soba/download.jpg" id="2_gp62x"]
-[ext_resource type="Texture2D" uid="uid://b7grtwvdtagoh" path="res://Asseti/sOBNI/test.png" id="3_tbncs"]
 
 [node name="SobaBaza" type="Node2D" unique_id=1083995744]
 script = ExtResource("1_4r1sy")
@@ -13,9 +12,5 @@ script = ExtResource("1_4r1sy")
 position = Vector2(561, 308)
 scale = Vector2(6.533864, 4.835821)
 texture = ExtResource("2_gp62x")
-
-[node name="Test" type="Sprite2D" parent="." unique_id=355397932]
-position = Vector2(282, 443)
-texture = ExtResource("3_tbncs")
 
 [node name="ObjectsContainer" type="Node2D" parent="." unique_id=428441009]

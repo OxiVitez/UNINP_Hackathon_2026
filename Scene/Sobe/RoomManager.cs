@@ -21,6 +21,9 @@ public partial class RoomManager : Node2D
     private readonly List<InventoryItem> _inventoryItems = new();
     private int _selectedItemIndex;
     private Label _inventoryLabel;
+    private CanvasLayer _inventoryCanvasLayer;
+    private TextureRect _dragPreview;
+    private bool _isDraggingFromInventory;
 
     public override void _Ready()
     {
@@ -50,6 +53,27 @@ public partial class RoomManager : Node2D
         RebuildOccupiedTiles();
     }
 
+    public override void _Input(InputEvent @event)
+    {
+        if (@event is InputEventMouseButton mouseEvent &&
+            !mouseEvent.Pressed &&
+            mouseEvent.ButtonIndex == MouseButton.Left &&
+            _isDraggingFromInventory)
+        {
+            TryPlaceDraggedItemAtMouse();
+            EndInventoryDrag();
+        }
+    }
+
+    public override void _Process(double delta)
+    {
+        if (_isDraggingFromInventory && _dragPreview != null)
+        {
+            var mousePos = GetViewport().GetMousePosition();
+            _dragPreview.Position = mousePos - (_dragPreview.Size / 2.0f);
+        }
+    }
+
     public override void _UnhandledInput(InputEvent @event)
     {
         if (@event is InputEventKey keyEvent && keyEvent.Pressed && !keyEvent.Echo)
@@ -59,9 +83,9 @@ public partial class RoomManager : Node2D
 
         if (@event is InputEventMouseButton mouseEvent &&
             mouseEvent.Pressed &&
-            mouseEvent.ButtonIndex == MouseButton.Left)
+            mouseEvent.ButtonIndex == MouseButton.Right)
         {
-            PlaceTestObjectAtMouse();
+            TryRemoveObjectAtMouse();
         }
     }
 
@@ -230,7 +254,7 @@ public partial class RoomManager : Node2D
         }
     }
 
-    private void PlaceTestObjectAtMouse()
+    private void TryPlaceDraggedItemAtMouse()
     {
         if (_inventoryItems.Count == 0)
         {
@@ -347,6 +371,17 @@ public partial class RoomManager : Node2D
         }
     }
 
+    private void UnmarkOccupied(Vector2I gridPosition, Vector2I sizeInTiles)
+    {
+        for (var x = 0; x < sizeInTiles.X; x++)
+        {
+            for (var y = 0; y < sizeInTiles.Y; y++)
+            {
+                _occupiedTiles.Remove(new Vector2I(gridPosition.X + x, gridPosition.Y + y));
+            }
+        }
+    }
+
     private void RebuildOccupiedTiles()
     {
         _occupiedTiles.Clear();
@@ -401,14 +436,14 @@ public partial class RoomManager : Node2D
 
     private void BuildInventoryUi()
     {
-        var canvasLayer = new CanvasLayer { Name = "InventoryUI" };
-        AddChild(canvasLayer);
+        _inventoryCanvasLayer = new CanvasLayer { Name = "InventoryUI" };
+        AddChild(_inventoryCanvasLayer);
 
         var panel = new PanelContainer();
         panel.SetAnchorsPreset(Control.LayoutPreset.TopLeft);
         panel.Position = new Vector2(12, 12);
-        panel.Size = new Vector2(320, 140);
-        canvasLayer.AddChild(panel);
+        panel.Size = new Vector2(420, 150);
+        _inventoryCanvasLayer.AddChild(panel);
 
         var vbox = new VBoxContainer();
         panel.AddChild(vbox);
@@ -418,25 +453,45 @@ public partial class RoomManager : Node2D
 
         var hintLabel = new Label
         {
-            Text = "Click: place | 1-4/Tab: select | F5 save | F9 load"
+            Text = "Drag iz inventory na grid | Right click: remove | 1-4/Tab select | F5 save | F9 load"
         };
         vbox.AddChild(hintLabel);
 
-        var buttons = new HBoxContainer();
-        vbox.AddChild(buttons);
+        var slots = new HBoxContainer();
+        vbox.AddChild(slots);
 
         for (var i = 0; i < _inventoryItems.Count; i++)
         {
             var localIndex = i;
             var item = _inventoryItems[i];
-            var button = new Button
+            var slot = new PanelContainer
             {
-                Text = $"{i + 1}:{item.SizeInTiles.X}x{item.SizeInTiles.Y}",
-                CustomMinimumSize = new Vector2(70, 28)
+                CustomMinimumSize = new Vector2(88, 88)
             };
-            button.Pressed += () => SelectInventoryItem(localIndex);
-            buttons.AddChild(button);
+            var textureRect = new TextureRect
+            {
+                ExpandMode = TextureRect.ExpandModeEnum.FitWidthProportional,
+                StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered,
+                CustomMinimumSize = new Vector2(80, 80),
+                MouseFilter = Control.MouseFilterEnum.Stop,
+                TooltipText = $"{item.ObjectType} ({item.SizeInTiles.X}x{item.SizeInTiles.Y})"
+            };
+            textureRect.Texture = GD.Load<Texture2D>(item.TexturePath);
+            textureRect.GuiInput += (InputEvent ev) => OnInventorySlotGuiInput(localIndex, ev);
+            slot.AddChild(textureRect);
+            slots.AddChild(slot);
         }
+
+        _dragPreview = new TextureRect
+        {
+            Visible = false,
+            MouseFilter = Control.MouseFilterEnum.Ignore,
+            ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
+            StretchMode = TextureRect.StretchModeEnum.Scale,
+            Modulate = new Color(1f, 1f, 1f, 0.75f),
+            ZIndex = 1000
+        };
+        _inventoryCanvasLayer.AddChild(_dragPreview);
 
         UpdateInventoryLabel();
     }
@@ -463,6 +518,51 @@ public partial class RoomManager : Node2D
 
         var item = _inventoryItems[_selectedItemIndex];
         _inventoryLabel.Text = $"Selected: {item.ObjectType} ({item.SizeInTiles.X}x{item.SizeInTiles.Y})";
+    }
+
+    private void OnInventorySlotGuiInput(int index, InputEvent inputEvent)
+    {
+        if (inputEvent is not InputEventMouseButton mouseEvent)
+        {
+            return;
+        }
+
+        if (mouseEvent.ButtonIndex == MouseButton.Left && mouseEvent.Pressed)
+        {
+            SelectInventoryItem(index);
+            StartInventoryDrag(index);
+        }
+    }
+
+    private void StartInventoryDrag(int index)
+    {
+        if (index < 0 || index >= _inventoryItems.Count || _dragPreview == null)
+        {
+            return;
+        }
+
+        var item = _inventoryItems[index];
+        var texture = GD.Load<Texture2D>(item.TexturePath);
+        if (texture == null)
+        {
+            GD.PushError($"Inventory texture missing: {item.TexturePath}");
+            return;
+        }
+
+        _dragPreview.Texture = texture;
+        _dragPreview.Size = new Vector2(item.SizeInTiles.X * CellSize.X, item.SizeInTiles.Y * CellSize.Y);
+        _dragPreview.Visible = true;
+        _isDraggingFromInventory = true;
+    }
+
+    private void EndInventoryDrag()
+    {
+        _isDraggingFromInventory = false;
+        if (_dragPreview != null)
+        {
+            _dragPreview.Visible = false;
+            _dragPreview.Texture = null;
+        }
     }
 
     private Sprite2D BuildItemSprite(string objectType, Vector2I sizeInTiles)
@@ -508,5 +608,52 @@ public partial class RoomManager : Node2D
         }
 
         return string.Empty;
+    }
+
+    private void TryRemoveObjectAtMouse()
+    {
+        var mouseGrid = WorldToGrid(GetGlobalMousePosition());
+        var placedNode = FindPlacedNodeAtGrid(mouseGrid);
+        if (placedNode == null)
+        {
+            return;
+        }
+
+        var gridPosition = placedNode.HasMeta("GridPosition")
+            ? (Vector2I)placedNode.GetMeta("GridPosition")
+            : WorldToGrid(placedNode.GlobalPosition);
+        var sizeInTiles = placedNode.HasMeta("SizeInTiles")
+            ? (Vector2I)placedNode.GetMeta("SizeInTiles")
+            : Vector2I.One;
+
+        UnmarkOccupied(gridPosition, sizeInTiles);
+        placedNode.QueueFree();
+    }
+
+    private Node2D FindPlacedNodeAtGrid(Vector2I grid)
+    {
+        foreach (var child in ObjectsContainer.GetChildren())
+        {
+            if (child is not Node2D node)
+            {
+                continue;
+            }
+
+            var gridPosition = node.HasMeta("GridPosition")
+                ? (Vector2I)node.GetMeta("GridPosition")
+                : WorldToGrid(node.GlobalPosition);
+            var sizeInTiles = node.HasMeta("SizeInTiles")
+                ? (Vector2I)node.GetMeta("SizeInTiles")
+                : Vector2I.One;
+
+            var insideX = grid.X >= gridPosition.X && grid.X < gridPosition.X + sizeInTiles.X;
+            var insideY = grid.Y >= gridPosition.Y && grid.Y < gridPosition.Y + sizeInTiles.Y;
+            if (insideX && insideY)
+            {
+                return node;
+            }
+        }
+
+        return null;
     }
 }
