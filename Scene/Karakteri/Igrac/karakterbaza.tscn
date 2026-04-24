@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://bmfl5d444fgis"]
+
+[ext_resource type="Texture2D" uid="uid://dliaylu87e6su" path="res://Asseti/Karakteri/Igrac/16x16 Idle-Sheet-export.png" id="1_a2s0g"]
+[ext_resource type="Script" uid="uid://dmuqeqrt55a71" path="res://Scene/Karakteri/Igrac/Karakterbaza.cs" id="1_epsxp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bafn6"]
+atlas = ExtResource("1_a2s0g")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ay8dj"]
+atlas = ExtResource("1_a2s0g")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ef8q"]
+atlas = ExtResource("1_a2s0g")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h156b"]
+atlas = ExtResource("1_a2s0g")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_epsxp"]
+atlas = ExtResource("1_a2s0g")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cja2j"]
+atlas = ExtResource("1_a2s0g")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v2vgo"]
+atlas = ExtResource("1_a2s0g")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_43tvc"]
+atlas = ExtResource("1_a2s0g")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4otk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bafn6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ay8dj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ef8q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h156b")
+}],
+"loop": true,
+"name": &"IdleLevo_Desno",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_epsxp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cja2j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v2vgo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_43tvc")
+}],
+"loop": true,
+"name": &"IdleUnapred",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a2s0g"]
+radius = 6.0
+height = 16.0
+
+[node name="Karakterbaza" type="CharacterBody2D" unique_id=1265704113]
+script = ExtResource("1_epsxp")
+
+[node name="Spriteanim" type="AnimatedSprite2D" parent="." unique_id=1507212293]
+sprite_frames = SubResource("SpriteFrames_g4otk")
+animation = &"IdleLevo_Desno"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1768373625]
+shape = SubResource("CapsuleShape2D_a2s0g")
