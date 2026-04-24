@@ -24,3 +24,36 @@ offset_right = 42.0
 offset_bottom = 104.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=916704899]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=498719203]
+
+[node name="ChatPanel" type="Control" parent="CanvasLayer" unique_id=1534521102]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Panel" type="Panel" parent="CanvasLayer/ChatPanel" unique_id=242476773]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="textProfesor" type="RichTextLabel" parent="CanvasLayer/ChatPanel" unique_id=164966378]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="playerInput" type="LineEdit" parent="CanvasLayer/ChatPanel" unique_id=398318472]
+layout_mode = 0
+offset_right = 68.5
+offset_bottom = 31.0
+
+[node name="SendButton" type="Button" parent="CanvasLayer/ChatPanel" unique_id=1946640817]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="closeButton" type="Button" parent="CanvasLayer/ChatPanel" unique_id=244388693]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
