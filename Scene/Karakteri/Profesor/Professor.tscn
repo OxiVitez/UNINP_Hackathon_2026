@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://btd0rvtgqfwhs"]
 
 [ext_resource type="Script" uid="uid://cbbc6haoqnonp" path="res://Scene/Karakteri/Profesor/ProfessorAI.cs" id="1_5n0ik"]
-[ext_resource type="Texture2D" uid="uid://dliaylu87e6su" path="res://Asseti/Karakteri/Igrac/16x16 Idle-Sheet-export.png" id="2_2t18v"]
+[ext_resource type="Texture2D" uid="uid://c7o3kgvugh7kp" path="res://Asseti/Karakteri/profesor/CapriProfBezPozadine.png" id="2_wun8k"]
 [ext_resource type="Texture2D" uid="uid://dayk06qw140jn" path="res://Asseti/Karakteri/profesor/CapriasProf.png" id="3_wun8k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yx0hs"]
@@ -15,28 +15,28 @@ line_spacing = -2.425
 font_size = 6
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gq6e8"]
-atlas = ExtResource("3_wun8k")
-region = Rect2(0, 0, 332, 389)
+atlas = ExtResource("2_wun8k")
+region = Rect2(0, 0, 188, 220)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6snxj"]
-atlas = ExtResource("3_wun8k")
-region = Rect2(332, 0, 332, 389)
+atlas = ExtResource("2_wun8k")
+region = Rect2(188, 0, 188, 220)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k656l"]
-atlas = ExtResource("3_wun8k")
-region = Rect2(664, 0, 332, 389)
+atlas = ExtResource("2_wun8k")
+region = Rect2(376, 0, 188, 220)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_li6is"]
-atlas = ExtResource("3_wun8k")
-region = Rect2(996, 0, 332, 389)
+atlas = ExtResource("2_wun8k")
+region = Rect2(564, 0, 188, 220)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4vqs1"]
-atlas = ExtResource("3_wun8k")
-region = Rect2(1328, 0, 332, 389)
+atlas = ExtResource("2_wun8k")
+region = Rect2(752, 0, 188, 220)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vc3fr"]
-atlas = ExtResource("3_wun8k")
-region = Rect2(1660, 0, 332, 389)
+atlas = ExtResource("2_wun8k")
+region = Rect2(940, 0, 188, 220)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wun8k"]
 atlas = ExtResource("3_wun8k")
@@ -93,12 +93,8 @@ animations = [{
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=791271058]
 script = ExtResource("1_5n0ik")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=783330095]
-texture = ExtResource("2_2t18v")
-hframes = 4
-vframes = 5
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1236575779]
+position = Vector2(51, 30)
 shape = SubResource("RectangleShape2D_yx0hs")
 
 [node name="Label" type="Label" parent="." unique_id=926979880]
@@ -133,11 +129,16 @@ grow_vertical = 2
 
 [node name="closeButton" type="Button" parent="CanvasLayer/ChatPanel/Panel" unique_id=244388693]
 layout_mode = 1
-anchors_preset = 2
+anchors_preset = 3
+anchor_left = 1.0
 anchor_top = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -8.0
-offset_right = 26.0
+offset_left = -31.910004
+offset_top = -13.0
+offset_right = -5.9100037
+offset_bottom = -5.0
+grow_horizontal = 0
 grow_vertical = 0
 
 [node name="Close" type="Label" parent="CanvasLayer/ChatPanel/Panel/closeButton" unique_id=1745043716]
@@ -161,21 +162,22 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_top = -33.0
-offset_right = 101.0
-offset_bottom = 33.0
+offset_left = 5.0
+offset_top = -29.5
+offset_right = 125.0
+offset_bottom = 28.5
 grow_vertical = 2
 text = "Ja sam tekst profeostra i ja pisem sta got treba da se napise i zelim  da bla bla bla bla bla bla jadhkahdkashdkjakdhaskjdhkasdhkjahdkahdkahdkahsdkhhahiasjsdilajdilasjlkdjlaksflsnflkasflsjalkjlkasjdklandljsaldjnasldnlkasndlkasndlandklandsklasndlkadbnkajddasjb"
 label_settings = SubResource("LabelSettings_wun8k")
 autowrap_mode = 3
 
 [node name="LiceProfesora" type="AnimatedSprite2D" parent="CanvasLayer/ChatPanel/Panel" unique_id=1103119246]
-position = Vector2(136, 29.000002)
-scale = Vector2(0.10581326, 0.08919666)
+position = Vector2(147, 28)
+scale = Vector2(0.241, 0.202)
 sprite_frames = SubResource("SpriteFrames_2t18v")
 animation = &"Capri"
-frame = 1
-frame_progress = 0.13060413
+frame = 5
+frame_progress = 0.90873414
 
 [node name="playerInput" type="LineEdit" parent="CanvasLayer/ChatPanel" unique_id=398318472]
 visible = false
@@ -184,7 +186,6 @@ offset_right = 68.5
 offset_bottom = 31.0
 
 [node name="SendButton" type="Button" parent="CanvasLayer/ChatPanel/playerInput" unique_id=1946640817]
-visible = false
 layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0
