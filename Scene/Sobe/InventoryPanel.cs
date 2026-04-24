@@ -26,7 +26,7 @@ public partial class InventoryPanel : CanvasLayer
     {
         _panel = GetNodeOrNull<PanelContainer>("Panel");
         _titleLabel = GetNodeOrNull<Label>("Panel/VBox/Title");
-        _slotsContainer = GetNodeOrNull<HBoxContainer>("Panel/VBox/Slots");
+        _slotsContainer = GetNodeOrNull<HBoxContainer>("Panel/VBox/SlotsContainer/Slots");
 
         BuildPlayerInventories();
         SetPlayer(_activePlayerId);
@@ -41,20 +41,12 @@ public partial class InventoryPanel : CanvasLayer
 
     public void ToggleVisibility()
     {
-        if (_panel == null)
-        {
-            return;
-        }
-
-        _panel.Visible = !_panel.Visible;
+        Visible = !Visible;
     }
 
     public void SetVisible(bool visible)
     {
-        if (_panel != null)
-        {
-            _panel.Visible = visible;
-        }
+        Visible = visible;
     }
 
     public bool TryGetTexturePath(string objectType, out string texturePath)
@@ -74,21 +66,38 @@ public partial class InventoryPanel : CanvasLayer
         _playerItems.Clear();
         _textureByType.Clear();
 
-        var testTexture = "res://Asseti/sOBNI/test.png";
-
-        _playerItems["player_1"] = new List<InventoryItem>
+        var firstTenTextures = new string[]
         {
-            new InventoryItem { ObjectType = "P1_Test_1x1", TexturePath = testTexture, SizeInTiles = new Vector2I(1, 1) },
-            new InventoryItem { ObjectType = "P1_Test_2x2", TexturePath = testTexture, SizeInTiles = new Vector2I(2, 2) },
-            new InventoryItem { ObjectType = "P1_Test_4x4", TexturePath = testTexture, SizeInTiles = new Vector2I(4, 4) }
+            "res://Asseti/Asseti/individual sprites/part-Slice 493.png",
+            "res://Asseti/Asseti/individual sprites/part-Slice 378.png",
+            "res://Asseti/Asseti/individual sprites/part-Slice 289.png",
+            "res://Asseti/Asseti/individual sprites/part-Slice 41.png",
+            "res://Asseti/Asseti/individual sprites/part-Slice 117.png",
+            "res://Asseti/Asseti/individual sprites/part-Slice 151.png",
+            "res://Asseti/Asseti/individual sprites/part-Slice 76.png",
+            "res://Asseti/Asseti/individual sprites/part-Slice 77.png",
+            "res://Asseti/Asseti/individual sprites/part-Slice 372.png",
+            "res://Asseti/Asseti/individual sprites/part-Slice 78.png"
         };
 
-        _playerItems["player_2"] = new List<InventoryItem>
+        List<InventoryItem> BuildItemsForPlayer(string playerPrefix)
         {
-            new InventoryItem { ObjectType = "P2_Test_1x1", TexturePath = testTexture, SizeInTiles = new Vector2I(1, 1) },
-            new InventoryItem { ObjectType = "P2_Test_2x2", TexturePath = testTexture, SizeInTiles = new Vector2I(2, 2) },
-            new InventoryItem { ObjectType = "P2_Test_8x8", TexturePath = testTexture, SizeInTiles = new Vector2I(8, 8) }
-        };
+            var items = new List<InventoryItem>();
+            for (var i = 0; i < firstTenTextures.Length; i++)
+            {
+                items.Add(new InventoryItem
+                {
+                    ObjectType = $"{playerPrefix}_Item_{i + 1}",
+                    TexturePath = firstTenTextures[i],
+                    SizeInTiles = new Vector2I(4, 4) // 64x64 px on 16x16 grid
+                });
+            }
+
+            return items;
+        }
+
+        _playerItems["player_1"] = BuildItemsForPlayer("P1");
+        _playerItems["player_2"] = BuildItemsForPlayer("P2");
     }
 
     private void RebuildSlotsForPlayer(string playerId)

@@ -21,6 +21,7 @@ public partial class RoomManager : Node2D
     private Node2D _draggedPlacedNode;
     private Vector2I _draggedOriginalGrid;
     private Vector2I _draggedSize = Vector2I.One;
+    private Vector2 _draggedMouseOffsetFromTopLeft = Vector2.Zero;
 
     public override void _Ready()
     {
@@ -109,7 +110,8 @@ public partial class RoomManager : Node2D
 
         if (_draggedPlacedNode != null)
         {
-            _draggedPlacedNode.GlobalPosition = GetSnappedPosition(GetGlobalMousePosition(), _draggedSize);
+            var snappedPosition = GetSnappedPositionWithMouseHoldOffset(GetGlobalMousePosition(), _draggedSize, _draggedMouseOffsetFromTopLeft);
+            _draggedPlacedNode.GlobalPosition = snappedPosition;
         }
     }
 
@@ -339,6 +341,9 @@ public partial class RoomManager : Node2D
         _draggedSize = placedNode.HasMeta("SizeInTiles")
             ? (Vector2I)placedNode.GetMeta("SizeInTiles")
             : Vector2I.One;
+
+        var currentTopLeft = GetTopLeftFromGrid(_draggedOriginalGrid);
+        _draggedMouseOffsetFromTopLeft = GetGlobalMousePosition() - currentTopLeft;
         UnmarkOccupied(_draggedOriginalGrid, _draggedSize);
     }
 
@@ -349,7 +354,7 @@ public partial class RoomManager : Node2D
             return;
         }
 
-        var snappedPosition = GetSnappedPosition(GetGlobalMousePosition(), _draggedSize);
+        var snappedPosition = GetSnappedPositionWithMouseHoldOffset(GetGlobalMousePosition(), _draggedSize, _draggedMouseOffsetFromTopLeft);
         var newGrid = GetGridPositionFromSnapped(snappedPosition, _draggedSize);
         if (CanPlaceAt(newGrid, _draggedSize))
         {
@@ -367,6 +372,7 @@ public partial class RoomManager : Node2D
         _draggedPlacedNode = null;
         _draggedSize = Vector2I.One;
         _draggedOriginalGrid = Vector2I.Zero;
+        _draggedMouseOffsetFromTopLeft = Vector2.Zero;
     }
 
     private Node2D InstantiateObjectForType(string objectType, Vector2I sizeInTiles)
@@ -424,6 +430,22 @@ public partial class RoomManager : Node2D
         var halfSize = new Vector2(sizeInTiles.X * CellSize.X / 2.0f, sizeInTiles.Y * CellSize.Y / 2.0f);
         var topLeft = snappedPosition - halfSize;
         return new Vector2I(Mathf.RoundToInt(topLeft.X / CellSize.X), Mathf.RoundToInt(topLeft.Y / CellSize.Y));
+    }
+
+    private Vector2 GetSnappedPositionWithMouseHoldOffset(Vector2 mouseGlobalPos, Vector2I sizeInTiles, Vector2 holdOffsetFromTopLeft)
+    {
+        var desiredTopLeft = mouseGlobalPos - holdOffsetFromTopLeft;
+        var snappedTopLeft = new Vector2(
+            Mathf.Round(desiredTopLeft.X / CellSize.X) * CellSize.X,
+            Mathf.Round(desiredTopLeft.Y / CellSize.Y) * CellSize.Y
+        );
+        var halfSize = new Vector2(sizeInTiles.X * CellSize.X / 2.0f, sizeInTiles.Y * CellSize.Y / 2.0f);
+        return snappedTopLeft + halfSize;
+    }
+
+    private Vector2 GetTopLeftFromGrid(Vector2I gridPosition)
+    {
+        return new Vector2(gridPosition.X * CellSize.X, gridPosition.Y * CellSize.Y);
     }
 
     private Vector2I WorldToGrid(Vector2 worldPosition)
