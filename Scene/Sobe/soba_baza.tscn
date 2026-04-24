@@ -1,8 +1,9 @@
-[gd_scene format=3 uid="uid://bxhe4bckh7eas"]
+[gd_scene format=3 uid="uid://ctl4r6dj474kx"]
 
 [ext_resource type="Script" uid="uid://c47chb3l8h3fm" path="res://Scene/Sobe/RoomManager.cs" id="1_4r1sy"]
 [ext_resource type="Texture2D" uid="uid://3ay75um6pb1u" path="res://Asseti/sOBNI/Zidovi/soba/download.jpg" id="2_gp62x"]
 [ext_resource type="PackedScene" path="res://Scene/Sobe/Inventar.tscn" id="3_inventory"]
+[ext_resource type="PackedScene" uid="uid://bmfl5d444fgis" path="res://Scene/Karakteri/Igrac/karakterbaza.tscn" id="4_gp62x"]
 
 [node name="SobaBaza" type="Node2D" unique_id=1083995744]
 script = ExtResource("1_4r1sy")
@@ -16,11 +17,15 @@ texture = ExtResource("2_gp62x")
 
 [node name="ObjectsContainer" type="Node2D" parent="." unique_id=428441009]
 
-[node name="InventoryButton" type="Button" parent="."]
+[node name="InventoryButton" type="Button" parent="." unique_id=1741973657]
 offset_left = 12.0
 offset_top = 12.0
 offset_right = 132.0
 offset_bottom = 44.0
 text = "Inventory"
 
-[node name="Inventar" parent="." instance=ExtResource("3_inventory")]
+[node name="Inventar" parent="." unique_id=2095010816 instance=ExtResource("3_inventory")]
+
+[node name="Karakterbaza" parent="." unique_id=1265704113 instance=ExtResource("4_gp62x")]
+position = Vector2(321, 247)
+scale = Vector2(3, 3)
