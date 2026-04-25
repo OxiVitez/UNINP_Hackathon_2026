@@ -12,6 +12,7 @@ public partial class BBlioteka : Node2D
 	[Export] private Button _nazadDugme;
 	[Export] private Button[] _exitDugmici;
 	[Export] private Button _debugTestDugme;
+	[Export] private int _itemSpacing = 10;
 
 	private bool _isPlayerNearby = false;
 
@@ -104,6 +105,9 @@ public partial class BBlioteka : Node2D
 	private void PopuniMeni()
 	{
 		if (_listaItema == null) return;
+
+		// Postavi razmak između dugmića
+		_listaItema.AddThemeConstantOverride("separation", _itemSpacing);
 
 		// Očisti listu
 		foreach (Node child in _listaItema.GetChildren())
