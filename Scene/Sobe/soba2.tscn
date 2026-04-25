@@ -1,0 +1,129 @@
+[gd_scene format=3 uid="uid://dbdoaoewiifq8"]
+
+[ext_resource type="Script" uid="uid://c47chb3l8h3fm" path="res://Scene/Sobe/RoomManager.cs" id="1_4pysc"]
+[ext_resource type="Texture2D" uid="uid://dx3c2ymmpg1te" path="res://Asseti/VelikeScene/Sobe-export.png" id="2_jnhht"]
+[ext_resource type="Texture2D" uid="uid://cc3tev7gnvlai" path="res://Asseti/VelikeScene/NEBOPLAVO.png" id="3_bb5b8"]
+[ext_resource type="PackedScene" uid="uid://qiqsr2fkxltx" path="res://Scene/Sobe/Inventar.tscn" id="4_q4epl"]
+[ext_resource type="Texture2D" uid="uid://te1mpqpg3f4b" path="res://Asseti/VelikeScene/Snimak ekrana 2026-04-25 100619.png" id="5_7jgxq"]
+[ext_resource type="PackedScene" uid="uid://bmfl5d444fgis" path="res://Scene/Karakteri/Igrac/karakterbaza.tscn" id="6_mbtd7"]
+[ext_resource type="Script" uid="uid://b6extaof65o4n" path="res://Scene/Sobe/PomeriKameru.cs" id="7_iuns6"]
+[ext_resource type="PackedScene" uid="uid://728cl3ytglh4" path="res://Scene/Sobe/biblioteka.tscn" id="8_rolnq"]
+[ext_resource type="Texture2D" uid="uid://bm3v6argnxuxv" path="res://Asseti/VelikeScene/kindpng_5038483.png" id="9_6kosr"]
+[ext_resource type="Texture2D" uid="uid://bl3n5a26m5qf5" path="res://Asseti/VelikeScene/Snimak ekrana 2026-04-25 095907.png" id="9_p47hm"]
+[ext_resource type="Texture2D" uid="uid://gka1kyw7bl1q" path="res://Asseti/VelikeScene/germann.png" id="11_4pysc"]
+[ext_resource type="Texture2D" uid="uid://cvifvbv2uy8dg" path="res://Asseti/VelikeScene/Snimak ekrana 2026-04-25 095114.png" id="12_jnhht"]
+[ext_resource type="Texture2D" uid="uid://bgmk6f70bhrvl" path="res://Asseti/VelikeScene/Snimak ekrana 2026-04-25 095705.png" id="13_bb5b8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tbncs"]
+size = Vector2(631, 46)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r0ljo"]
+size = Vector2(67, 76)
+
+[node name="SobaBaza" type="Node2D" unique_id=1083995744]
+script = ExtResource("1_4pysc")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1344247181]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1732298797]
+position = Vector2(383, 40.625004)
+scale = Vector2(1, 0.75400007)
+texture = ExtResource("2_jnhht")
+
+[node name="BLACK" type="Sprite2D" parent="Sprite2D" unique_id=1191574224]
+position = Vector2(25.500042, -237.16382)
+scale = Vector2(46.281246, 3.8292882)
+texture = ExtResource("3_bb5b8")
+
+[node name="BLACK2" type="Sprite2D" parent="Sprite2D" unique_id=2048946367]
+position = Vector2(87.00003, -157.32758)
+scale = Vector2(6.6875014, 3.8292882)
+texture = ExtResource("3_bb5b8")
+
+[node name="BLACK3" type="Sprite2D" parent="Sprite2D" unique_id=1997898155]
+position = Vector2(723.5, 3.0195389)
+scale = Vector2(2.59375, 11.530028)
+texture = ExtResource("3_bb5b8")
+
+[node name="BLACK4" type="Sprite2D" parent="Sprite2D" unique_id=820153188]
+position = Vector2(-693.25, 1.8236008)
+scale = Vector2(0.7343755, 11.530028)
+texture = ExtResource("3_bb5b8")
+
+[node name="BLACK5" type="Sprite2D" parent="Sprite2D" unique_id=1716486010]
+position = Vector2(166.12498, 168.89975)
+scale = Vector2(1.5546873, 1.1625139)
+texture = ExtResource("3_bb5b8")
+
+[node name="ObjectsContainer" type="Node2D" parent="." unique_id=428441009]
+
+[node name="InventoryButton" type="Button" parent="." unique_id=1741973657]
+offset_left = -272.0
+offset_top = -163.0
+offset_right = -152.0
+offset_bottom = -131.0
+text = "Inventory"
+
+[node name="Inventar" parent="." unique_id=2095010816 instance=ExtResource("4_q4epl")]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2064291621]
+position = Vector2(34.035, 0)
+
+[node name="DrugaSoba" type="Marker2D" parent="Camera2D" unique_id=795264807]
+position = Vector2(750.965, 1)
+
+[node name="PrvaSoba" type="Marker2D" parent="Camera2D" unique_id=826638261]
+position = Vector2(-0.034999847, 1)
+
+[node name="sto3" type="Sprite2D" parent="." unique_id=1739811904]
+position = Vector2(828.00006, 111.00001)
+scale = Vector2(0.399094, 0.35731128)
+texture = ExtResource("5_7jgxq")
+
+[node name="Karakterbaza2" parent="." unique_id=623066995 instance=ExtResource("6_mbtd7")]
+position = Vector2(-169, 102)
+scale = Vector2(3, 3)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1513524948]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1967240818]
+position = Vector2(31.5, 13)
+shape = SubResource("RectangleShape2D_tbncs")
+
+[node name="CameraTransfer" type="Area2D" parent="." unique_id=1472235054 node_paths=PackedStringArray("kamera", "pozicijaA", "pozicijaB")]
+script = ExtResource("7_iuns6")
+kamera = NodePath("../Camera2D")
+pozicijaA = NodePath("../Camera2D/PrvaSoba")
+pozicijaB = NodePath("../Camera2D/DrugaSoba")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraTransfer" unique_id=842883088]
+position = Vector2(383.5, 146)
+shape = SubResource("RectangleShape2D_r0ljo")
+
+[node name="biblioteka" parent="." unique_id=714134138 instance=ExtResource("8_rolnq")]
+position = Vector2(627, -8)
+
+[node name="sto" type="Sprite2D" parent="." unique_id=966248752]
+position = Vector2(998, 5.687491)
+scale = Vector2(0.10572388, 0.10261662)
+texture = ExtResource("9_6kosr")
+
+[node name="sto2" type="Sprite2D" parent="." unique_id=1015755067]
+position = Vector2(830, 8)
+scale = Vector2(0.08531388, 0.07336658)
+texture = ExtResource("9_p47hm")
+
+[node name="sto4" type="Sprite2D" parent="." unique_id=1954945951]
+position = Vector2(297, -40)
+scale = Vector2(0.09765694, 0.0836833)
+texture = ExtResource("11_4pysc")
+
+[node name="sto5" type="Sprite2D" parent="." unique_id=1758191751]
+position = Vector2(227.25008, -41.749992)
+scale = Vector2(0.19218701, 0.16261394)
+texture = ExtResource("12_jnhht")
+
+[node name="sto6" type="Sprite2D" parent="." unique_id=1928992896]
+position = Vector2(-236, 37.000004)
+scale = Vector2(0.08531388, 0.07336658)
+texture = ExtResource("13_bb5b8")

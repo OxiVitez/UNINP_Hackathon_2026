@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public partial class BBlioteka : Node2D
 {
-	[Export] private Area2D _StisniArea;
 	[Export] private Panel _meniPanel;
 	[Export] private VBoxContainer _listaItema;
 	[Export] private Panel _detaljiPanel;
@@ -14,28 +13,18 @@ public partial class BBlioteka : Node2D
 	[Export] private Button _debugTestDugme;
 	[Export] private int _itemSpacing = 10;
 
-	private bool _isPlayerNearby = false;
-
-	private Dictionary<string, string> _mockPodaci = new()
-	{
-		{ "Knjiga o Programiranju", "• Osnove C#\n• Godot Engine 4\n• Arhitektura igara" },
-		{ "Istorija Umetnosti", "• Renesansa\n• Barok\n• Modernizam" },
-		{ "Matematika za Inženjere", "• Linearna algebra\n• Matematička analiza\n• Diskretna matematika" }
+	private string[] _imenaKurseva = { "Kurs Programiranja", "Kurs Ekonomije", "Kurs Umetnosti" };
+	private string[] _tezeKurseva = 
+	{ 
+		"• Osnove C#\n• Godot Engine 4\n• Arhitektura igara",
+		"• Mikroekonomija\n• Makroekonomija\n• Tržište kapitala",
+		"• Renesansa\n• Barok\n• Modernizam"
 	};
 
 	public override void _Ready()
 	{
 		// Sakrij panele na početku
-		if (_meniPanel != null) _meniPanel.Visible = false;
-		if (_detaljiPanel != null) _detaljiPanel.Visible = false;
-
-		// Poveži signale za Area2D
-		if (_StisniArea != null)
-		{
-			_StisniArea.BodyEntered += OnBodyEntered;
-			_StisniArea.BodyExited += OnBodyExited;
-			_StisniArea.InputEvent += OnAreaInputEvent;
-		}
+		ZatvoriSve();
 
 		if (_nazadDugme != null)
 		{
@@ -52,45 +41,14 @@ public partial class BBlioteka : Node2D
 
 		if (_debugTestDugme != null)
 		{
+			// Očistimo prethodne konekcije ako postoje i dodajemo novu
 			_debugTestDugme.Pressed += () => {
-				GD.Print("Debug: Ručno otvaranje menija biblioteke.");
+				GD.Print("Dugme pritisnuto: Otvaram meni.");
 				OtvoriMeni();
 			};
 		}
 
 		PopuniMeni();
-	}
-
-	private void OnBodyEntered(Node2D body)
-	{
-		// Proveri da li je igrač ušao u zonu
-		if (body.Name.ToString().ToLower().Contains("player") || body is CharacterBody2D)
-		{
-			_isPlayerNearby = true;
-			GD.Print("Igrač je blizu biblioteke. Klikni za interakciju.");
-		}
-	}
-
-	private void OnBodyExited(Node2D body)
-	{
-		if (body.Name.ToString().ToLower().Contains("player") || body is CharacterBody2D)
-		{
-			_isPlayerNearby = false;
-			if (_meniPanel != null) _meniPanel.Visible = false;
-			if (_detaljiPanel != null) _detaljiPanel.Visible = false;
-			GD.Print("Igrač se udaljio od biblioteke.");
-		}
-	}
-
-	private void OnAreaInputEvent(Node viewport, InputEvent @event, long shapeIdx)
-	{
-		if (_isPlayerNearby && @event is InputEventMouseButton mouseEvent)
-		{
-			if (mouseEvent.ButtonIndex == MouseButton.Left && mouseEvent.Pressed)
-			{
-				OtvoriMeni();
-			}
-		}
 	}
 
 	private void OtvoriMeni()
@@ -115,11 +73,19 @@ public partial class BBlioteka : Node2D
 			child.QueueFree();
 		}
 
-		foreach (var stavka in _mockPodaci)
+		// Prolazimo kroz nizove podataka
+		for (int i = 0; i < _imenaKurseva.Length; i++)
 		{
+			if (i >= _tezeKurseva.Length) break;
+
 			Button dugme = new Button();
-			dugme.Text = stavka.Key;
-			string teze = stavka.Value;
+			dugme.Text = _imenaKurseva[i];
+			
+			// Bela slova za dugmad u glavnom meniju
+			dugme.AddThemeColorOverride("font_color", new Color(1, 1, 1)); 
+			dugme.AddThemeColorOverride("font_hover_color", new Color(0.8f, 0.8f, 0.8f));
+			
+			string teze = _tezeKurseva[i];
 			
 			dugme.Pressed += () => PrikažiDetalje(teze);
 			_listaItema.AddChild(dugme);
@@ -133,6 +99,12 @@ public partial class BBlioteka : Node2D
 			_meniPanel.Visible = false;
 			_detaljiPanel.Visible = true;
 			_tekstTeza.Text = teze;
+			
+			// Eksplicitno postavljamo crnu boju za tekst teza
+			_tekstTeza.AddThemeColorOverride("font_color", new Color(0, 0, 0));
+			_tekstTeza.Visible = true;
+			
+			GD.Print("Detalji uspešno postavljeni sa crnom bojom teksta.");
 		}
 	}
 

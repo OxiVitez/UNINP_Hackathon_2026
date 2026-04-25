@@ -5,12 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://37yxdsir1bp2" path="res://Asseti/VelikeScene/NJIGA.png" id="4_vruy1"]
 [ext_resource type="Texture2D" uid="uid://br1mpu50qtbl2" path="res://Asseti/VelikeScene/paperr.png" id="5_2sjwf"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kqsaa"]
-size = Vector2(64, 64)
-
-[node name="biblioteka" type="Node2D" unique_id=2111632831 node_paths=PackedStringArray("_StisniArea", "_meniPanel", "_listaItema", "_detaljiPanel", "_tekstTeza", "_nazadDugme", "_exitDugmici", "_debugTestDugme")]
+[node name="biblioteka" type="Node2D" unique_id=2111632831 node_paths=PackedStringArray("_meniPanel", "_listaItema", "_detaljiPanel", "_tekstTeza", "_nazadDugme", "_exitDugmici", "_debugTestDugme")]
 script = ExtResource("1_script")
-_StisniArea = NodePath("Area2D")
 _meniPanel = NodePath("CanvasLayer/MeniPanel")
 _listaItema = NodePath("CanvasLayer/MeniPanel/VBoxContainer")
 _detaljiPanel = NodePath("CanvasLayer/DetaljiPanel")
@@ -26,21 +22,34 @@ scale = Vector2(0.17090161, 0.211)
 texture = ExtResource("3_3bgtf")
 
 [node name="knjiga1" type="Sprite2D" parent="Sprite2D" unique_id=1795066949]
-position = Vector2(9.348641, -76.33588)
-scale = Vector2(1, 0.68618506)
+position = Vector2(6.582714, -91.23223)
+scale = Vector2(0.8469904, 0.54126346)
 texture = ExtResource("4_vruy1")
 
+[node name="knjiga2" type="Sprite2D" parent="Sprite2D" unique_id=716321171]
+position = Vector2(6.582714, -91.23223)
+scale = Vector2(0.8469904, 0.54126346)
+texture = ExtResource("4_vruy1")
+offset = Vector2(0, 186.88)
+
+[node name="knjiga3" type="Sprite2D" parent="Sprite2D" unique_id=1256147232]
+position = Vector2(6.582714, -91.23223)
+scale = Vector2(0.8469904, 0.54126346)
+texture = ExtResource("4_vruy1")
+offset = Vector2(0, 376.41)
+
+[node name="knjiga4" type="Sprite2D" parent="Sprite2D" unique_id=1131107866]
+position = Vector2(6.582714, -91.23223)
+scale = Vector2(0.8469904, 0.54126346)
+texture = ExtResource("4_vruy1")
+offset = Vector2(0, 563.105)
+
 [node name="DebugTestButton" type="Button" parent="." unique_id=152438339]
-offset_left = -62.0
-offset_top = -21.0
-offset_right = 68.0
-offset_bottom = 19.0
-text = "TEST SISTEMA"
-
-[node name="Area2D" type="Area2D" parent="." unique_id=1550087245]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=32193464]
-shape = SubResource("RectangleShape2D_kqsaa")
+offset_left = -43.0
+offset_top = -60.0
+offset_right = 71.0
+offset_bottom = 44.0
+flat = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1430456300]
 offset = Vector2(0, 16.39)
