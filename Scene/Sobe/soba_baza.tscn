@@ -15,6 +15,7 @@ size = Vector2(631, 46)
 size = Vector2(67, 76)
 
 [node name="SobaBaza" type="Node2D" unique_id=1083995744]
+position = Vector2(1, 0)
 script = ExtResource("1_4r1sy")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1344247181]

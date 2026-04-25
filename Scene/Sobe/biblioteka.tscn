@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://728cl3ytglh4"]
 
 [ext_resource type="Script" uid="uid://dkouw7tcrq70k" path="res://Scene/Sobe/BBlioteka.cs" id="1_script"]
-[ext_resource type="Texture2D" uid="uid://b7grtwvdtagoh" path="res://Asseti/sOBNI/test.png" id="2_6qjho"]
+[ext_resource type="Texture2D" uid="uid://dmf43ewce6i46" path="res://Asseti/VelikeScene/books.png" id="3_3bgtf"]
+[ext_resource type="Texture2D" uid="uid://37yxdsir1bp2" path="res://Asseti/VelikeScene/NJIGA.png" id="4_vruy1"]
+[ext_resource type="Texture2D" uid="uid://br1mpu50qtbl2" path="res://Asseti/VelikeScene/paperr.png" id="5_2sjwf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kqsaa"]
 size = Vector2(64, 64)
@@ -16,9 +18,17 @@ _tekstTeza = NodePath("CanvasLayer/DetaljiPanel/VBoxContainer/Label")
 _nazadDugme = NodePath("CanvasLayer/DetaljiPanel/VBoxContainer/Button")
 _exitDugmici = [NodePath("CanvasLayer/MeniPanel/ExitButton"), NodePath("CanvasLayer/DetaljiPanel/ExitButton")]
 _debugTestDugme = NodePath("DebugTestButton")
+_itemSpacing = 46
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1257138705]
-texture = ExtResource("2_6qjho")
+position = Vector2(18.875004, -8.75)
+scale = Vector2(0.17090161, 0.211)
+texture = ExtResource("3_3bgtf")
+
+[node name="knjiga1" type="Sprite2D" parent="Sprite2D" unique_id=1795066949]
+position = Vector2(9.348641, -76.33588)
+scale = Vector2(1, 0.68618506)
+texture = ExtResource("4_vruy1")
 
 [node name="DebugTestButton" type="Button" parent="." unique_id=152438339]
 offset_left = -62.0
@@ -33,6 +43,9 @@ text = "TEST SISTEMA"
 shape = SubResource("RectangleShape2D_kqsaa")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1430456300]
+offset = Vector2(0, 16.39)
+scale = Vector2(0.68, 0.68)
+transform = Transform2D(0.68, 0, 0, 0.68, 0, 16.39)
 
 [node name="MeniPanel" type="Panel" parent="CanvasLayer" unique_id=638389119]
 visible = false
@@ -48,7 +61,32 @@ offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ExitButton" type="Button" parent="CanvasLayer/MeniPanel"]
+[node name="TextureRect" type="Sprite2D" parent="CanvasLayer/MeniPanel" unique_id=247026273]
+position = Vector2(150.5, 203)
+scale = Vector2(0.48688525, 0.792)
+texture = ExtResource("3_3bgtf")
+
+[node name="njiga1" type="Sprite2D" parent="CanvasLayer/MeniPanel/TextureRect" unique_id=618262609]
+position = Vector2(0, -86.472)
+scale = Vector2(1, 0.59238726)
+texture = ExtResource("4_vruy1")
+
+[node name="njiga2" type="Sprite2D" parent="CanvasLayer/MeniPanel/TextureRect" unique_id=1613357153]
+position = Vector2(0, 9.968)
+scale = Vector2(1, 0.59238726)
+texture = ExtResource("4_vruy1")
+
+[node name="njiga3" type="Sprite2D" parent="CanvasLayer/MeniPanel/TextureRect" unique_id=651173346]
+position = Vector2(0, 110.088)
+scale = Vector2(1, 0.59238726)
+texture = ExtResource("4_vruy1")
+
+[node name="njiga4" type="Sprite2D" parent="CanvasLayer/MeniPanel/TextureRect" unique_id=491649791]
+position = Vector2(0, 210.163)
+scale = Vector2(1, 0.59238726)
+texture = ExtResource("4_vruy1")
+
+[node name="ExitButton" type="Button" parent="CanvasLayer/MeniPanel" unique_id=933653116]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -70,7 +108,7 @@ offset_top = 10.0
 offset_right = 50.0
 offset_bottom = 33.0
 grow_horizontal = 2
-text = "Izaberi Item"
+text = "Izaberi Belešku"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MeniPanel" unique_id=1298901238]
@@ -78,7 +116,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 50.0
+offset_top = 120.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -96,7 +134,12 @@ offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ExitButton" type="Button" parent="CanvasLayer/DetaljiPanel"]
+[node name="TextureRect" type="Sprite2D" parent="CanvasLayer/DetaljiPanel" unique_id=132365348]
+position = Vector2(150.58826, 201.54044)
+scale = Vector2(0.49509797, 0.51055735)
+texture = ExtResource("5_2sjwf")
+
+[node name="ExitButton" type="Button" parent="CanvasLayer/DetaljiPanel" unique_id=1543172141]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
