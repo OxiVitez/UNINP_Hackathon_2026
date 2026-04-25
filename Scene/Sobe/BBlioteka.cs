@@ -13,13 +13,31 @@ public partial class BBlioteka : Node2D
 	[Export] private Button _debugTestDugme;
 	[Export] private int _itemSpacing = 10;
 
-	private string[] _imenaKurseva = { "Kurs Programiranja", "Kurs Ekonomije", "Kurs Umetnosti" };
-	private string[] _tezeKurseva = 
-	{ 
-		"• Osnove C#\n• Godot Engine 4\n• Arhitektura igara",
-		"• Mikroekonomija\n• Makroekonomija\n• Tržište kapitala",
-		"• Renesansa\n• Barok\n• Modernizam"
-	};
+	private string[] _imenaKurseva = { 
+    "Kurs Programiranja", 
+    "Kurs Ekonomije", 
+    "Kurs Umetnosti", 
+    "Kurs Engleskog Jezika" 
+};
+
+private string[] _tezeKurseva = 
+{ 
+    "• Osnove C# jezika: Razumevanje objektno-orijentisanog programiranja, klasa i metoda za razvoj sistema.\n" +
+    "• Godot Engine 4: Upravljanje čvorovima, rad sa signalima i optimizacija fizike u realnom vremenu.\n" +
+    "• Arhitektura igara: Organizacija koda kroz kompoziciju i efikasno upravljanje scenama i stanjima.",
+
+    "• Mikroekonomija: Analiza ponašanja učesnika na tržištu i optimizacija oskudnih resursa na farmi.\n" +
+    "• Makroekonomija: Proučavanje globalnih trendova, inflacije i uloge centralnih banaka u stabilnosti.\n" +
+    "• Tržište kapitala: Razumevanje instrumenata investiranja, rizika i dinamike berzanskog poslovanja.",
+
+    "• Renesansa: Majstorstvo perspektive, proučavanje ljudske anatomije i povratak klasičnim idealima.\n" +
+    "• Barok: Dinamične kompozicije, korišćenje dramatičnog kontrasta svetlosti i naglašena emocija.\n" +
+    "• Modernizam: Prekid sa tradicijom kroz eksperimentisanje formom, bojom i novim medijima.",
+
+    "• Akademsko pisanje: Usavršavanje strukture eseja, kritičkog osvrta i veština formalne korespondencije.\n" +
+    "• Književna analiza: Istraživanje ključnih dela koja su oblikovala savremenu misao i kulturu.\n" +
+    "• Poslovna komunikacija: Savladavanje stručne terminologije iz oblasti tehnologije i međunarodnog biznisa."
+};
 
 	public override void _Ready()
 	{
