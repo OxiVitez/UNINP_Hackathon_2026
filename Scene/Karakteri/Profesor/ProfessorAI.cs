@@ -11,7 +11,6 @@ public partial class ProfessorAI : CharacterBody2D
     [Export] public LineEdit      playerInput;
     [Export] public Control       chatPanel;
 
-    private string apiKey = "AIzaSyD7iSdmNQd2hfhzwodFkL7R2MqrF1g8Qxo"; // mora pocinjati sa sk-
 
     private static System.Net.Http.HttpClient httpClient = new System.Net.Http.HttpClient();
     private List<object> conversationHistory = new List<object>();
