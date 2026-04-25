@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://728cl3ytglh4"]
+
+[ext_resource type="Texture2D" uid="uid://b7grtwvdtagoh" path="res://Asseti/sOBNI/test.png" id="2_6qjho"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kqsaa"]
+
+[node name="biblioteka" type="Node2D" unique_id=977585508]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=931037958]
+texture = ExtResource("2_6qjho")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1402598642]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1605512997]
+shape = SubResource("RectangleShape2D_kqsaa")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1829543133]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=1728068035]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=1423972513]
+offset_right = 40.0
+offset_bottom = 23.0
