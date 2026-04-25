@@ -3,7 +3,7 @@ using System;
 
 public partial class Karakterbaza : CharacterBody2D
 {
-    public const float Speed = 300.0f;
+    [Export] public float Speed = 300.0f;
     [Export] private AnimatedSprite2D animacija;
 
     private Vector2 lastDirection = Vector2.Down;

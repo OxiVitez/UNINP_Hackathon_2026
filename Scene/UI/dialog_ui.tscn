@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://cfr7gmsciffsr"]
+
+[ext_resource type="Script" uid="uid://rmel74vq3xph" path="res://Scene/UI/DialogUi.cs" id="1_bipaq"]
+
+[node name="DialogUi" type="CanvasLayer" unique_id=1323894989 node_paths=PackedStringArray("panel", "tekstLinije", "napomenaPritisni", "slikaNPC")]
+script = ExtResource("1_bipaq")
+panel = NodePath("Panel")
+tekstLinije = NodePath("Panel/Tekst")
+napomenaPritisni = NodePath("Panel/Podsetnik")
+slikaNPC = NodePath("Panel/TextureRect")
+
+[node name="Panel" type="Panel" parent="." unique_id=234837339]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -123.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Podsetnik" type="Label" parent="Panel" unique_id=1357403243]
+layout_mode = 0
+offset_left = 517.0
+offset_top = -24.999992
+offset_right = 635.00006
+offset_bottom = -1.9999924
+text = "Stisni E za dalje"
+
+[node name="Tekst" type="Label" parent="Panel" unique_id=2131510690]
+layout_mode = 0
+offset_right = 638.0
+offset_bottom = 83.0
+text = "Brudenzi"
+autowrap_mode = 3
+
+[node name="TextureRect" type="TextureRect" parent="Panel" unique_id=1655587903]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2

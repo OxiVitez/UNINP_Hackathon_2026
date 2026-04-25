@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://cbc8w28ponisl"]
+
+[ext_resource type="PackedScene" uid="uid://dh27sdydhe0if" path="res://Scene/Karakteri/Npc-ijevi/npc_baza.tscn" id="1_van6t"]
+[ext_resource type="Texture2D" uid="uid://1ei1gbwox7uj" path="res://Asseti/Karakteri/npc-ovi/Bicarka/Red.png" id="2_b67up"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bl6xy"]
+atlas = ExtResource("2_b67up")
+region = Rect2(189, 63, 63, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ljmor"]
+atlas = ExtResource("2_b67up")
+region = Rect2(252, 63, 63, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_34uxp"]
+atlas = ExtResource("2_b67up")
+region = Rect2(315, 63, 63, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3uhsl"]
+atlas = ExtResource("2_b67up")
+region = Rect2(378, 63, 63, 63)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fnbj6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bl6xy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ljmor")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_34uxp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3uhsl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jxyj2"]
+radius = 8.0
+
+[node name="NpcBaza" unique_id=664361618 instance=ExtResource("1_van6t")]
+
+[node name="Sprite" parent="." index="0" unique_id=925284045]
+sprite_frames = SubResource("SpriteFrames_fnbj6")
+autoplay = "default"
+frame_progress = 0.698236
+flip_h = true
+
+[node name="CollisionShape2D" parent="." index="1" unique_id=503682383]
+position = Vector2(0, 15)
+shape = SubResource("CapsuleShape2D_jxyj2")
+
+[node name="CollisionShape2D" parent="CapriArea" parent_id_path=PackedInt32Array(168749733) index="0" unique_id=1298775124]
+position = Vector2(0, 17)
