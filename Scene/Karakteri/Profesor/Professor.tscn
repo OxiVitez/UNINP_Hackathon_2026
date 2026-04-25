@@ -90,7 +90,7 @@ animations = [{
 script = ExtResource("1_5n0ik")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1236575779]
-position = Vector2(555, 266)
+position = Vector2(560, 269)
 shape = SubResource("RectangleShape2D_yx0hs")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=916704899]
@@ -100,9 +100,9 @@ shape = SubResource("RectangleShape2D_yx0hs")
 [node name="ChatPanel" type="Control" parent="CanvasLayer" unique_id=1534521102]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 282.0
+offset_left = 288.0
 offset_top = 146.98
-offset_right = 326.37244
+offset_right = 332.37244
 offset_bottom = 186.98012
 scale = Vector2(1.155, 1.155)
 
@@ -113,10 +113,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -267.6624
-offset_top = 14.649284
-offset_right = 285.44586
-offset_bottom = 159.82245
+offset_left = -271.1256
+offset_top = 18.11248
+offset_right = 281.98267
+offset_bottom = 163.28564
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -170,10 +170,10 @@ frame_progress = 0.27933422
 
 [node name="playerInput" type="LineEdit" parent="CanvasLayer/ChatPanel" unique_id=398318472]
 layout_mode = 0
-offset_left = -209.5671
-offset_top = 141.14287
-offset_right = 149.74028
-offset_bottom = 172.14287
+offset_left = -210.43288
+offset_top = 143.74026
+offset_right = 148.8745
+offset_bottom = 174.74026
 
 [node name="SendButton" type="Button" parent="CanvasLayer/ChatPanel/playerInput" unique_id=1946640817]
 layout_mode = 0
@@ -191,4 +191,4 @@ offset_bottom = 23.00005
 text = "Send"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=705779682]
-position = Vector2(314, 177.99998)
+position = Vector2(319, 180.99998)
