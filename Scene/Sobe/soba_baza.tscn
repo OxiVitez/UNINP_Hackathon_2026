@@ -1,9 +1,17 @@
 [gd_scene format=3 uid="uid://ctl4r6dj474kx"]
 
 [ext_resource type="Script" uid="uid://c47chb3l8h3fm" path="res://Scene/Sobe/RoomManager.cs" id="1_4r1sy"]
-[ext_resource type="Texture2D" uid="uid://3ay75um6pb1u" path="res://Asseti/sOBNI/Zidovi/soba/download.jpg" id="2_gp62x"]
+[ext_resource type="Texture2D" uid="uid://dx3c2ymmpg1te" path="res://Asseti/VelikeScene/Sobe-export.png" id="2_gp62x"]
 [ext_resource type="PackedScene" uid="uid://qiqsr2fkxltx" path="res://Scene/Sobe/Inventar.tscn" id="3_inventory"]
+[ext_resource type="Texture2D" uid="uid://cc3tev7gnvlai" path="res://Asseti/VelikeScene/NEBOPLAVO.png" id="3_tbncs"]
 [ext_resource type="PackedScene" uid="uid://bmfl5d444fgis" path="res://Scene/Karakteri/Igrac/karakterbaza.tscn" id="4_gp62x"]
+[ext_resource type="Script" uid="uid://b6extaof65o4n" path="res://Scene/Sobe/PomeriKameru.cs" id="6_r0ljo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tbncs"]
+size = Vector2(631, 46)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r0ljo"]
+size = Vector2(67, 76)
 
 [node name="SobaBaza" type="Node2D" unique_id=1083995744]
 script = ExtResource("1_4r1sy")
@@ -11,21 +19,56 @@ script = ExtResource("1_4r1sy")
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1344247181]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1732298797]
-position = Vector2(561, 308)
-scale = Vector2(6.533864, 4.835821)
+position = Vector2(383, 40.625004)
+scale = Vector2(1, 0.75400007)
 texture = ExtResource("2_gp62x")
+
+[node name="BLACK" type="Sprite2D" parent="Sprite2D" unique_id=1191574224]
+position = Vector2(-6.499911, -237.16382)
+scale = Vector2(44.28125, 3.8292882)
+texture = ExtResource("3_tbncs")
+
+[node name="BLACK2" type="Sprite2D" parent="Sprite2D" unique_id=2048946367]
+position = Vector2(87.00003, -157.32758)
+scale = Vector2(6.6875014, 3.8292882)
+texture = ExtResource("3_tbncs")
 
 [node name="ObjectsContainer" type="Node2D" parent="." unique_id=428441009]
 
 [node name="InventoryButton" type="Button" parent="." unique_id=1741973657]
-offset_left = 12.0
-offset_top = 12.0
-offset_right = 132.0
-offset_bottom = 44.0
+offset_left = -272.0
+offset_top = -163.0
+offset_right = -152.0
+offset_bottom = -131.0
 text = "Inventory"
 
 [node name="Inventar" parent="." unique_id=2095010816 instance=ExtResource("3_inventory")]
 
-[node name="Karakterbaza" parent="." unique_id=1265704113 instance=ExtResource("4_gp62x")]
-position = Vector2(678, 349)
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2064291621]
+position = Vector2(34.035, 0)
+
+[node name="DrugaSoba" type="Marker2D" parent="Camera2D" unique_id=795264807]
+position = Vector2(750.965, 1)
+
+[node name="PrvaSoba" type="Marker2D" parent="Camera2D" unique_id=826638261]
+position = Vector2(-0.034999847, 1)
+
+[node name="Karakterbaza2" parent="." unique_id=623066995 instance=ExtResource("4_gp62x")]
+position = Vector2(-169, 102)
 scale = Vector2(3, 3)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1513524948]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1967240818]
+position = Vector2(31.5, 13)
+shape = SubResource("RectangleShape2D_tbncs")
+
+[node name="CameraTransfer" type="Area2D" parent="." unique_id=1472235054 node_paths=PackedStringArray("kamera", "pozicijaA", "pozicijaB")]
+script = ExtResource("6_r0ljo")
+kamera = NodePath("../Camera2D")
+pozicijaA = NodePath("../Camera2D/PrvaSoba")
+pozicijaB = NodePath("../Camera2D/DrugaSoba")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraTransfer" unique_id=842883088]
+position = Vector2(383.5, 146)
+shape = SubResource("RectangleShape2D_r0ljo")
