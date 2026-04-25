@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://ctl4r6dj474kx"]
+[gd_scene format=3 uid="uid://bxhe4bckh7eas"]
 
 [ext_resource type="Script" uid="uid://c47chb3l8h3fm" path="res://Scene/Sobe/RoomManager.cs" id="1_4r1sy"]
 [ext_resource type="Texture2D" uid="uid://dx3c2ymmpg1te" path="res://Asseti/VelikeScene/Sobe-export.png" id="2_gp62x"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cc3tev7gnvlai" path="res://Asseti/VelikeScene/NEBOPLAVO.png" id="3_tbncs"]
 [ext_resource type="PackedScene" uid="uid://bmfl5d444fgis" path="res://Scene/Karakteri/Igrac/karakterbaza.tscn" id="4_gp62x"]
 [ext_resource type="Script" uid="uid://b6extaof65o4n" path="res://Scene/Sobe/PomeriKameru.cs" id="6_r0ljo"]
+[ext_resource type="PackedScene" uid="uid://728cl3ytglh4" path="res://Scene/Sobe/biblioteka.tscn" id="7_oc0v2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tbncs"]
 size = Vector2(631, 46)
@@ -72,3 +73,6 @@ pozicijaB = NodePath("../Camera2D/DrugaSoba")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraTransfer" unique_id=842883088]
 position = Vector2(383.5, 146)
 shape = SubResource("RectangleShape2D_r0ljo")
+
+[node name="biblioteka" parent="." unique_id=714134138 instance=ExtResource("7_oc0v2")]
+position = Vector2(627, -7)
