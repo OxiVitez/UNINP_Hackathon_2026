@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://cwxn6lwl4gs3w"]
+
+[ext_resource type="Script" uid="uid://bqak27utn36aa" path="res://Scene/Overlapovi/ProdavnicaENtrance.cs" id="1_oiae3"]
+[ext_resource type="Texture2D" uid="uid://c1x2hggcaimio" path="res://Asseti/Itemi/Jabuka1.png" id="1_wg586"]
+[ext_resource type="Texture2D" uid="uid://c4hyaqy2w3t0w" path="res://Asseti/Itemi/Tresnja.png" id="2_stxuy"]
+[ext_resource type="Texture2D" uid="uid://biodypc2a8mc6" path="res://Asseti/Itemi/Banana.png" id="3_oiae3"]
+[ext_resource type="Texture2D" uid="uid://blyiaierpy463" path="res://Asseti/Itemi/Kruska.png" id="4_u5erh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lc1xd"]
+size = Vector2(248, 55)
+
+[node name="Area2D" type="Area2D" unique_id=331493262 node_paths=PackedStringArray("ShopUI", "JabkuaButton", "KruskaButton", "BananaButton", "SljivaButton")]
+script = ExtResource("1_oiae3")
+ShopUI = NodePath("CanvasLayer")
+JabkuaButton = NodePath("CanvasLayer/Jabuka")
+KruskaButton = NodePath("CanvasLayer/Kruska")
+BananaButton = NodePath("CanvasLayer/Banana")
+SljivaButton = NodePath("CanvasLayer/sljiva")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2011018532]
+position = Vector2(1, 17.5)
+shape = SubResource("RectangleShape2D_lc1xd")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1081555748]
+visible = false
+
+[node name="Jabuka" type="Button" parent="CanvasLayer" unique_id=218798455]
+offset_left = 155.0
+offset_top = 226.0
+offset_right = 280.0
+offset_bottom = 355.0
+icon = ExtResource("1_wg586")
+flat = true
+
+[node name="sljiva" type="Button" parent="CanvasLayer" unique_id=488296103]
+offset_left = 231.0
+offset_top = 18.0
+offset_right = 376.0
+offset_bottom = 153.0
+icon = ExtResource("2_stxuy")
+flat = true
+
+[node name="Banana" type="Button" parent="CanvasLayer" unique_id=32917632]
+offset_left = 453.0
+offset_top = 128.0
+offset_right = 571.0
+offset_bottom = 275.0
+icon = ExtResource("3_oiae3")
+flat = true
+
+[node name="Kruska" type="Button" parent="CanvasLayer" unique_id=1843358113]
+offset_left = 11.0
+offset_top = 70.0
+offset_right = 118.0
+offset_bottom = 217.0
+icon = ExtResource("4_u5erh")
+flat = true
+
+[node name="Zadatak" type="Label" parent="CanvasLayer" unique_id=2113602949]
+offset_left = 561.0
+offset_top = 4.0
+offset_right = 639.0
+offset_bottom = 27.0
+text = "Buy:Apple"

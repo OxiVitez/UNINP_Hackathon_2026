@@ -41,6 +41,7 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jxyj2"]
 radius = 8.0
+height = 20.0
 
 [node name="NpcBaza" unique_id=664361618 instance=ExtResource("1_van6t")]
 
@@ -51,7 +52,7 @@ frame_progress = 0.698236
 flip_h = true
 
 [node name="CollisionShape2D" parent="." index="1" unique_id=503682383]
-position = Vector2(0, 15)
+position = Vector2(0, 20.04)
 shape = SubResource("CapsuleShape2D_jxyj2")
 
 [node name="CollisionShape2D" parent="CapriArea" parent_id_path=PackedInt32Array(168749733) index="0" unique_id=1298775124]

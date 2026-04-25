@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://bxhe4bckh7eas"]
+[gd_scene format=3 uid="uid://ctl4r6dj474kx"]
 
 [ext_resource type="Script" uid="uid://c47chb3l8h3fm" path="res://Scene/Sobe/RoomManager.cs" id="1_4r1sy"]
 [ext_resource type="Texture2D" uid="uid://dx3c2ymmpg1te" path="res://Asseti/VelikeScene/Sobe-export.png" id="2_gp62x"]
