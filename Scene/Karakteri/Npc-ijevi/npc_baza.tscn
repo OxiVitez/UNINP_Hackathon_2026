@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://dh27sdydhe0if"]
+
+[ext_resource type="Script" uid="uid://byprmutc5vd0i" path="res://Scene/Karakteri/Npc-ijevi/NpcBaza.cs" id="1_avl0s"]
+[ext_resource type="Script" uid="uid://5eqdihr1tjl5" path="res://Globali/DialogLinija.cs" id="2_irl2h"]
+[ext_resource type="Texture2D" uid="uid://v4s5fgrnadp8" path="res://Asseti/Asseti/Ekspresije/Bicarka/DjevKaBlagoSmug.png" id="2_rt4vy"]
+[ext_resource type="PackedScene" uid="uid://cfr7gmsciffsr" path="res://Scene/UI/dialog_ui.tscn" id="2_thtf0"]
+[ext_resource type="Texture2D" uid="uid://i2x7dnnsgog8" path="res://Asseti/Asseti/Ekspresije/Bicarka/DjevkaSrecnaSmug.png" id="4_rp2uc"]
+
+[sub_resource type="Resource" id="Resource_rt4vy"]
+script = ExtResource("2_irl2h")
+Tekst = "E brate moj"
+Sprite = ExtResource("2_rt4vy")
+metadata/_custom_type_script = "uid://5eqdihr1tjl5"
+
+[sub_resource type="Resource" id="Resource_kn3mw"]
+script = ExtResource("2_irl2h")
+Tekst = "OKOOOOO"
+Sprite = ExtResource("4_rp2uc")
+metadata/_custom_type_script = "uid://5eqdihr1tjl5"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qwg4k"]
+radius = 30.016663
+
+[node name="NpcBaza" type="CharacterBody2D" unique_id=664361618 node_paths=PackedStringArray("zonaInterakcije")]
+script = ExtResource("1_avl0s")
+zonaInterakcije = NodePath("CapriArea")
+linije = [SubResource("Resource_rt4vy"), SubResource("Resource_kn3mw")]
+dijalogUIPath = NodePath("DialogUi")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=925284045]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=503682383]
+
+[node name="CapriArea" type="Area2D" parent="." unique_id=168749733]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CapriArea" unique_id=1298775124]
+shape = SubResource("CircleShape2D_qwg4k")
+
+[node name="DialogUi" parent="." unique_id=1323894989 instance=ExtResource("2_thtf0")]
