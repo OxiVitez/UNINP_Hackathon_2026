@@ -1,25 +1,131 @@
 [gd_scene format=3 uid="uid://728cl3ytglh4"]
 
+[ext_resource type="Script" uid="uid://dkouw7tcrq70k" path="res://Scene/Sobe/BBlioteka.cs" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://b7grtwvdtagoh" path="res://Asseti/sOBNI/test.png" id="2_6qjho"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kqsaa"]
+size = Vector2(64, 64)
 
-[node name="biblioteka" type="Node2D" unique_id=977585508]
+[node name="biblioteka" type="Node2D" unique_id=2111632831 node_paths=PackedStringArray("_StisniArea", "_meniPanel", "_listaItema", "_detaljiPanel", "_tekstTeza", "_nazadDugme", "_exitDugmici", "_debugTestDugme")]
+script = ExtResource("1_script")
+_StisniArea = NodePath("Area2D")
+_meniPanel = NodePath("CanvasLayer/MeniPanel")
+_listaItema = NodePath("CanvasLayer/MeniPanel/VBoxContainer")
+_detaljiPanel = NodePath("CanvasLayer/DetaljiPanel")
+_tekstTeza = NodePath("CanvasLayer/DetaljiPanel/VBoxContainer/Label")
+_nazadDugme = NodePath("CanvasLayer/DetaljiPanel/VBoxContainer/Button")
+_exitDugmici = [NodePath("CanvasLayer/MeniPanel/ExitButton"), NodePath("CanvasLayer/DetaljiPanel/ExitButton")]
+_debugTestDugme = NodePath("DebugTestButton")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=931037958]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1257138705]
 texture = ExtResource("2_6qjho")
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1402598642]
+[node name="DebugTestButton" type="Button" parent="." unique_id=152438339]
+offset_left = -62.0
+offset_top = -21.0
+offset_right = 68.0
+offset_bottom = 19.0
+text = "TEST SISTEMA"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1605512997]
+[node name="Area2D" type="Area2D" parent="." unique_id=1550087245]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=32193464]
 shape = SubResource("RectangleShape2D_kqsaa")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1829543133]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1430456300]
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=1728068035]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="MeniPanel" type="Panel" parent="CanvasLayer" unique_id=638389119]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -200.0
+offset_right = 150.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Label" type="Label" parent="CanvasLayer" unique_id=1423972513]
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="ExitButton" type="Button" parent="CanvasLayer/MeniPanel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -30.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = 36.0
+grow_horizontal = 0
+text = "X"
+
+[node name="Label" type="Label" parent="CanvasLayer/MeniPanel" unique_id=615772509]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -50.0
+offset_top = 10.0
+offset_right = 50.0
+offset_bottom = 33.0
+grow_horizontal = 2
+text = "Izaberi Item"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MeniPanel" unique_id=1298901238]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DetaljiPanel" type="Panel" parent="CanvasLayer" unique_id=1519701641]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -200.0
+offset_right = 150.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ExitButton" type="Button" parent="CanvasLayer/DetaljiPanel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -30.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = 36.0
+grow_horizontal = 0
+text = "X"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/DetaljiPanel" unique_id=305013658]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/DetaljiPanel/VBoxContainer" unique_id=682249547]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Teze..."
+autowrap_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/DetaljiPanel/VBoxContainer" unique_id=1876962791]
+layout_mode = 2
+text = "Nazad"
