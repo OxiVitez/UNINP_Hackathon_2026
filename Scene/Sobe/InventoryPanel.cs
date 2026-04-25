@@ -68,16 +68,10 @@ public partial class InventoryPanel : CanvasLayer
 
         var firstTenTextures = new string[]
         {
-            "res://Asseti/Asseti/individual sprites/part-Slice 493.png",
-            "res://Asseti/Asseti/individual sprites/part-Slice 378.png",
-            "res://Asseti/Asseti/individual sprites/part-Slice 289.png",
-            "res://Asseti/Asseti/individual sprites/part-Slice 41.png",
-            "res://Asseti/Asseti/individual sprites/part-Slice 117.png",
-            "res://Asseti/Asseti/individual sprites/part-Slice 151.png",
-            "res://Asseti/Asseti/individual sprites/part-Slice 76.png",
-            "res://Asseti/Asseti/individual sprites/part-Slice 77.png",
-            "res://Asseti/Asseti/individual sprites/part-Slice 372.png",
-            "res://Asseti/Asseti/individual sprites/part-Slice 78.png"
+            "res://Asseti/trofeji/Gemini_Generated_Image_omay7zomay7zomay.png",
+            "res://Asseti/trofeji/cash.png",
+            "res://Asseti/trofeji/program.png",
+            "res://Asseti/trofeji/ukflagg.png"
         };
 
         List<InventoryItem> BuildItemsForPlayer(string playerPrefix)

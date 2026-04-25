@@ -6,7 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://cc3tev7gnvlai" path="res://Asseti/VelikeScene/NEBOPLAVO.png" id="3_tbncs"]
 [ext_resource type="PackedScene" uid="uid://bmfl5d444fgis" path="res://Scene/Karakteri/Igrac/karakterbaza.tscn" id="4_gp62x"]
 [ext_resource type="Script" uid="uid://b6extaof65o4n" path="res://Scene/Sobe/PomeriKameru.cs" id="6_r0ljo"]
-[ext_resource type="PackedScene" path="res://Scene/Sobe/biblioteka.tscn" id="7_oc0v2"]
+[ext_resource type="PackedScene" uid="uid://728cl3ytglh4" path="res://Scene/Sobe/biblioteka.tscn" id="7_oc0v2"]
+[ext_resource type="Texture2D" uid="uid://bm3v6argnxuxv" path="res://Asseti/VelikeScene/kindpng_5038483.png" id="8_lw4w1"]
+[ext_resource type="Texture2D" uid="uid://6stwvc114ofg" path="res://Asseti/VelikeScene/githubb.png" id="9_1tb0v"]
+[ext_resource type="Texture2D" uid="uid://c8alvqpnt5hf2" path="res://Asseti/Trofeji/cash.png" id="10_3slhy"]
+[ext_resource type="Texture2D" uid="uid://cnaohlvjs631e" path="res://Asseti/Trofeji/Gemini_Generated_Image_omay7zomay7zomay.png" id="11_ugot4"]
+[ext_resource type="Texture2D" uid="uid://dvmes54flsnq6" path="res://Asseti/Trofeji/program.png" id="12_ywkea"]
+[ext_resource type="Texture2D" uid="uid://b53xrtbgpar6q" path="res://Asseti/VelikeScene/Gemini_Generated_Image_11x9gi11x9gi11x9.png" id="13_ugot4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tbncs"]
 size = Vector2(631, 46)
@@ -15,7 +21,6 @@ size = Vector2(631, 46)
 size = Vector2(67, 76)
 
 [node name="SobaBaza" type="Node2D" unique_id=1083995744]
-position = Vector2(1, 0)
 script = ExtResource("1_4r1sy")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1344247181]
@@ -26,13 +31,28 @@ scale = Vector2(1, 0.75400007)
 texture = ExtResource("2_gp62x")
 
 [node name="BLACK" type="Sprite2D" parent="Sprite2D" unique_id=1191574224]
-position = Vector2(-6.499911, -237.16382)
-scale = Vector2(44.28125, 3.8292882)
+position = Vector2(25.500042, -237.16382)
+scale = Vector2(46.281246, 3.8292882)
 texture = ExtResource("3_tbncs")
 
 [node name="BLACK2" type="Sprite2D" parent="Sprite2D" unique_id=2048946367]
 position = Vector2(87.00003, -157.32758)
 scale = Vector2(6.6875014, 3.8292882)
+texture = ExtResource("3_tbncs")
+
+[node name="BLACK3" type="Sprite2D" parent="Sprite2D" unique_id=1997898155]
+position = Vector2(723.5, 3.0195389)
+scale = Vector2(2.59375, 11.530028)
+texture = ExtResource("3_tbncs")
+
+[node name="BLACK4" type="Sprite2D" parent="Sprite2D" unique_id=820153188]
+position = Vector2(-693.25, 1.8236008)
+scale = Vector2(0.7343755, 11.530028)
+texture = ExtResource("3_tbncs")
+
+[node name="BLACK5" type="Sprite2D" parent="Sprite2D" unique_id=1716486010]
+position = Vector2(166.12498, 168.89975)
+scale = Vector2(1.5546873, 1.1625139)
 texture = ExtResource("3_tbncs")
 
 [node name="ObjectsContainer" type="Node2D" parent="." unique_id=428441009]
@@ -54,6 +74,11 @@ position = Vector2(750.965, 1)
 
 [node name="PrvaSoba" type="Marker2D" parent="Camera2D" unique_id=826638261]
 position = Vector2(-0.034999847, 1)
+
+[node name="slika5" type="Sprite2D" parent="." unique_id=1995589576]
+position = Vector2(830, 109.00001)
+scale = Vector2(0.13190839, 0.119525045)
+texture = ExtResource("13_ugot4")
 
 [node name="Karakterbaza2" parent="." unique_id=623066995 instance=ExtResource("4_gp62x")]
 position = Vector2(-169, 102)
@@ -78,4 +103,3 @@ shape = SubResource("RectangleShape2D_r0ljo")
 [node name="biblioteka" parent="." unique_id=714134138 node_paths=PackedStringArray("_exitDugmici") instance=ExtResource("7_oc0v2")]
 position = Vector2(627, -7)
 _exitDugmici = []
-_itemSpacing = 10
