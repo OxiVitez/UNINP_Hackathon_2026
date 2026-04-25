@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://blntut0qd1phl"]
+
+[ext_resource type="Texture2D" uid="uid://2oxhqvwrfmg6" path="res://Asseti/Karakteri/npc-ovi/akteri/Auto1.png" id="1_gdssg"]
+[ext_resource type="Script" uid="uid://jtokgog3m8n7" path="res://Scene/Karakteri/Npc-ijevi/AutoIdeUlevo.cs" id="2_uyrp6"]
+
+[node name="Sprite2D" type="Sprite2D" unique_id=922090754]
+texture = ExtResource("1_gdssg")
+script = ExtResource("2_uyrp6")
