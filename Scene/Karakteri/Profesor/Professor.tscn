@@ -5,14 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://dayk06qw140jn" path="res://Asseti/Karakteri/profesor/CapriasProf.png" id="3_wun8k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yx0hs"]
-size = Vector2(12, 16)
+size = Vector2(156, 142)
 
 [sub_resource type="LabelSettings" id="LabelSettings_2t18v"]
 font_size = 7
-
-[sub_resource type="LabelSettings" id="LabelSettings_wun8k"]
-line_spacing = -2.425
-font_size = 6
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gq6e8"]
 atlas = ExtResource("2_wun8k")
@@ -94,14 +90,8 @@ animations = [{
 script = ExtResource("1_5n0ik")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1236575779]
-position = Vector2(51, 30)
+position = Vector2(555, 266)
 shape = SubResource("RectangleShape2D_yx0hs")
-
-[node name="Label" type="Label" parent="." unique_id=926979880]
-offset_left = 2.0
-offset_top = 81.0
-offset_right = 42.0
-offset_bottom = 104.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=916704899]
 
@@ -110,8 +100,11 @@ offset_bottom = 104.0
 [node name="ChatPanel" type="Control" parent="CanvasLayer" unique_id=1534521102]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 282.0
+offset_top = 146.98
+offset_right = 326.37244
+offset_bottom = 186.98012
+scale = Vector2(1.155, 1.155)
 
 [node name="Panel" type="Panel" parent="CanvasLayer/ChatPanel" unique_id=242476773]
 layout_mode = 1
@@ -120,10 +113,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -87.0
-offset_top = -49.0
-offset_right = 80.0
-offset_bottom = 17.0
+offset_left = -267.6624
+offset_top = 14.649284
+offset_right = 285.44586
+offset_bottom = 159.82245
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -134,10 +127,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -31.910004
-offset_top = -13.0
-offset_right = -5.9100037
-offset_bottom = -5.0
+offset_left = -120.61905
+offset_top = -13.571411
+offset_right = -29.70996
+offset_bottom = -0.5843811
 grow_horizontal = 0
 grow_vertical = 0
 
@@ -157,38 +150,45 @@ grow_vertical = 2
 text = "close"
 label_settings = SubResource("LabelSettings_2t18v")
 
-[node name="TeksProfesora" type="Label" parent="CanvasLayer/ChatPanel/Panel" unique_id=1766734671]
+[node name="TeksProfesora" type="RichTextLabel" parent="CanvasLayer/ChatPanel/Panel" unique_id=1397221608]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 5.0
-offset_top = -29.5
-offset_right = 125.0
-offset_bottom = 28.5
+offset_left = 38.095238
+offset_top = -65.22723
+offset_right = 396.12558
+offset_bottom = 33.90696
 grow_vertical = 2
-text = "Ja sam tekst profeostra i ja pisem sta got treba da se napise i zelim  da bla bla bla bla bla bla jadhkahdkashdkjakdhaskjdhkasdhkjahdkahdkahdkahsdkhhahiasjsdilajdilasjlkdjlaksflsnflkasflsjalkjlkasjdklandljsaldjnasldnlkasndlkasndlandklandsklasndlkadbnkajddasjb"
-label_settings = SubResource("LabelSettings_wun8k")
-autowrap_mode = 3
 
 [node name="LiceProfesora" type="AnimatedSprite2D" parent="CanvasLayer/ChatPanel/Panel" unique_id=1103119246]
-position = Vector2(147, 28)
-scale = Vector2(0.241, 0.202)
+position = Vector2(481.83994, 68.39828)
+scale = Vector2(0.57584894, 0.48235625)
 sprite_frames = SubResource("SpriteFrames_2t18v")
 animation = &"Capri"
-frame = 5
-frame_progress = 0.90873414
+frame_progress = 0.27933422
 
 [node name="playerInput" type="LineEdit" parent="CanvasLayer/ChatPanel" unique_id=398318472]
-visible = false
 layout_mode = 0
-offset_right = 68.5
-offset_bottom = 31.0
+offset_left = -209.5671
+offset_top = 141.14287
+offset_right = 149.74028
+offset_bottom = 172.14287
 
 [node name="SendButton" type="Button" parent="CanvasLayer/ChatPanel/playerInput" unique_id=1946640817]
 layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
+offset_left = 261.47186
+offset_top = 2.5973492
+offset_right = 354.97836
+offset_bottom = 26.83978
+
+[node name="Label" type="Label" parent="CanvasLayer/ChatPanel/playerInput/SendButton" unique_id=1720838417]
+layout_mode = 0
+offset_left = 25.97403
+offset_top = 4.887581e-05
+offset_right = 65.97403
+offset_bottom = 23.00005
+text = "Send"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=705779682]
-zoom = Vector2(1.925, 1.925)
+position = Vector2(314, 177.99998)

@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://dnylvtpffrtcf"]
+
+[ext_resource type="Script" uid="uid://cobckl14ejj3b" path="res://Scene/UI/OglasnaTabla.cs" id="1_e6boe"]
+[ext_resource type="Texture2D" uid="uid://bykgqj302jyw5" path="res://Asseti/Karakteri/npc-ovi/akteri/TablaPrazna.png" id="1_ski44"]
+[ext_resource type="Texture2D" uid="uid://cyuw6ue8r8x5n" path="res://Asseti/Karakteri/npc-ovi/akteri/KursEngleskog-papir.png" id="2_mo7yj"]
+[ext_resource type="Texture2D" uid="uid://bhhh8oj2b7mmf" path="res://Asseti/Karakteri/npc-ovi/akteri/KursC.png" id="3_e6boe"]
+[ext_resource type="PackedScene" uid="uid://cdvxs0552rg1m" path="res://Scene/UI/fade_in.tscn" id="5_xsp1b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e6boe"]
+size = Vector2(246.0937, 385.52985)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xsp1b"]
+size = Vector2(241.0708, 378.94946)
+
+[node name="OglasnaTabla" type="Control" unique_id=1188815842 node_paths=PackedStringArray("Dugme1", "Dugme2", "OglasnaTablaSprite1", "OglasnaTablaSprite2", "OglasnaZona1", "OglasnaZona2", "fadeIn")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -297.0
+offset_top = -130.0
+offset_right = -297.0
+offset_bottom = -130.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_e6boe")
+Dugme1 = NodePath("TextureRect/Oglas1/Button")
+Dugme2 = NodePath("TextureRect/Oglas2/Button2")
+OglasnaTablaSprite1 = NodePath("TextureRect/Oglas1")
+OglasnaTablaSprite2 = NodePath("TextureRect/Oglas2")
+OglasnaZona1 = NodePath("TextureRect/Oglas1/Oglas1")
+OglasnaZona2 = NodePath("TextureRect/Oglas2/Oglas2")
+putanjaScene1 = "res://Scene/KutScene/KursEngleski.tscn"
+putanjaScene2 = "res://Scene/KutScene/KursEngleski.tscn"
+fadeIn = NodePath("FadeIn")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=898365069]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_top = -3.0
+offset_right = 722.0
+offset_bottom = 405.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ski44")
+
+[node name="Oglas1" type="Sprite2D" parent="TextureRect" unique_id=1927154647]
+position = Vector2(357, 321)
+rotation = -0.28797933
+texture = ExtResource("2_mo7yj")
+
+[node name="Button" type="Button" parent="TextureRect/Oglas1" unique_id=1245324238]
+offset_left = -66.68654
+offset_top = -218.06963
+offset_right = 185.45856
+offset_bottom = 165.0638
+rotation = 0.23561946
+flat = true
+
+[node name="Oglas1" type="Area2D" parent="TextureRect/Oglas1" unique_id=1268559861]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TextureRect/Oglas1/Oglas1" unique_id=719239097]
+position = Vector2(20.296814, -2.6090088)
+rotation = 0.23168285
+shape = SubResource("RectangleShape2D_e6boe")
+
+[node name="Oglas2" type="Sprite2D" parent="TextureRect" unique_id=141521590]
+position = Vector2(803, 280)
+texture = ExtResource("3_e6boe")
+
+[node name="Button2" type="Button" parent="TextureRect/Oglas2" unique_id=1780154818]
+offset_left = -17.0
+offset_top = -226.0
+offset_right = 235.14508
+offset_bottom = 157.13342
+rotation = 0.4537856
+flat = true
+
+[node name="Oglas2" type="Area2D" parent="TextureRect/Oglas2" unique_id=1251534927]
+
+[node name="Oglas2Col" type="CollisionShape2D" parent="TextureRect/Oglas2/Oglas2" unique_id=1438155983]
+position = Vector2(8.901428, 2.2781067)
+rotation = 0.2059883
+scale = Vector2(0.9999998, 0.9999998)
+shape = SubResource("RectangleShape2D_xsp1b")
+
+[node name="FadeIn" parent="." unique_id=1750110363 instance=ExtResource("5_xsp1b")]
+layout_mode = 1

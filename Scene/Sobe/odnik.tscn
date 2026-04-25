@@ -1,0 +1,166 @@
+[gd_scene format=3 uid="uid://c7s33bbdfwht0"]
+
+[ext_resource type="Texture2D" uid="uid://bm1s0blkusfyv" path="res://Asseti/VelikeScene/Odnik.png" id="1_n23kh"]
+[ext_resource type="PackedScene" uid="uid://bmfl5d444fgis" path="res://Scene/Karakteri/Igrac/karakterbaza.tscn" id="2_aydu3"]
+[ext_resource type="PackedScene" uid="uid://dnylvtpffrtcf" path="res://Scene/UI/oglasna_tabla.tscn" id="3_6x5av"]
+[ext_resource type="Script" uid="uid://dadiiy1wvb1g5" path="res://Scene/UI/FadeIn.cs" id="4_34gma"]
+[ext_resource type="Script" uid="uid://bcy14efifu6gk" path="res://Scene/Sobe/StisniE.cs" id="4_ckuuw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aydu3"]
+size = Vector2(854, 46)
+
+[sub_resource type="Animation" id="Animation_bwpwk"]
+resource_name = "FadeIn"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.01),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-640, 0), Vector2(632.76, -38.89)]
+}
+
+[sub_resource type="Animation" id="Animation_nlgfy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-640, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nlgfy"]
+_data = {
+&"FadeIn": SubResource("Animation_bwpwk"),
+&"RESET": SubResource("Animation_nlgfy")
+}
+
+[sub_resource type="Gradient" id="Gradient_bwpwk"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nlgfy"]
+gradient = SubResource("Gradient_bwpwk")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6x5av"]
+size = Vector2(265, 44)
+
+[node name="ODNIK" type="Node2D" unique_id=1428778700]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=317295526]
+position = Vector2(425, 205)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("1_n23kh")
+
+[node name="Karakterbaza" parent="." unique_id=1265704113 instance=ExtResource("2_aydu3")]
+position = Vector2(64, 223)
+scale = Vector2(2, 2)
+Speed = 200.0
+
+[node name="Camera2D" type="Camera2D" parent="Karakterbaza" unique_id=517019355]
+limit_left = 0
+limit_top = -21
+limit_right = 848
+limit_bottom = 437
+drag_left_margin = 0.11
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1663324677]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1243120348]
+position = Vector2(424, 149)
+shape = SubResource("RectangleShape2D_aydu3")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=173892838]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=289830916]
+position = Vector2(424, 325)
+shape = SubResource("RectangleShape2D_aydu3")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1858460834]
+visible = false
+
+[node name="OglasnaTabla" parent="CanvasLayer" unique_id=1188815842 node_paths=PackedStringArray("fadeIn") instance=ExtResource("3_6x5av")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -121.0
+offset_top = -57.0
+offset_right = -121.0
+offset_bottom = -57.0
+scale = Vector2(0.315, 0.315)
+fadeIn = NodePath("../FadeIn")
+
+[node name="FadeIn" type="Control" parent="CanvasLayer" unique_id=1750110363 node_paths=PackedStringArray("_animacija")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -642.0
+offset_top = 19.0
+offset_right = -642.0
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_34gma")
+_animacija = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/FadeIn" unique_id=169263374]
+libraries/ = SubResource("AnimationLibrary_nlgfy")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/FadeIn" unique_id=9622461]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -640.0
+offset_right = -576.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.351, 1.351)
+texture = SubResource("GradientTexture2D_nlgfy")
+
+[node name="StisniE" type="Area2D" parent="." unique_id=1769332441 node_paths=PackedStringArray("Canvas")]
+script = ExtResource("4_ckuuw")
+Canvas = NodePath("../CanvasLayer")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StisniE" unique_id=1703888995]
+position = Vector2(426.5, 196)
+shape = SubResource("RectangleShape2D_6x5av")

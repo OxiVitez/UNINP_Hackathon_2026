@@ -78,3 +78,4 @@ shape = SubResource("RectangleShape2D_r0ljo")
 [node name="biblioteka" parent="." unique_id=714134138 node_paths=PackedStringArray("_exitDugmici") instance=ExtResource("7_oc0v2")]
 position = Vector2(627, -7)
 _exitDugmici = []
+_itemSpacing = 10

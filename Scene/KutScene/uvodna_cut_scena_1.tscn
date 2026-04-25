@@ -528,7 +528,7 @@ texture = ExtResource("1_bcc6l")
 position = Vector2(1037, 693)
 sprite_frames = SubResource("SpriteFrames_437wp")
 autoplay = "default"
-frame_progress = 0.49313396
+frame_progress = 0.5609543
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=175449194]
 libraries/ = SubResource("AnimationLibrary_u1638")

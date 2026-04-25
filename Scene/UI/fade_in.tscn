@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://cdvxs0552rg1m"]
+
+[ext_resource type="Script" uid="uid://dadiiy1wvb1g5" path="res://Scene/UI/FadeIn.cs" id="1_nlgfy"]
+
+[sub_resource type="Animation" id="Animation_bwpwk"]
+resource_name = "FadeIn"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.01),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-640, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_nlgfy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-640, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nlgfy"]
+_data = {
+&"FadeIn": SubResource("Animation_bwpwk"),
+&"RESET": SubResource("Animation_nlgfy")
+}
+
+[sub_resource type="Gradient" id="Gradient_bwpwk"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nlgfy"]
+gradient = SubResource("Gradient_bwpwk")
+
+[node name="FadeIn" type="Control" unique_id=1750110363 node_paths=PackedStringArray("_animacija")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nlgfy")
+_animacija = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=169263374]
+libraries/ = SubResource("AnimationLibrary_nlgfy")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=9622461]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -640.0
+offset_right = -640.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_nlgfy")
