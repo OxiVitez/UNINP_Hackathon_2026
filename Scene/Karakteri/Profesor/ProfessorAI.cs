@@ -10,7 +10,9 @@ public partial class ProfessorAI : CharacterBody2D
     [Export] public RichTextLabel textProfesor;
     [Export] public LineEdit      playerInput;
     [Export] public Control       chatPanel;
+    [Export] private Button OpenButton;
 
+    private string apiKey = "###"; // mora pocinjati sa sk-
 
     private static System.Net.Http.HttpClient httpClient = new System.Net.Http.HttpClient();
     private List<object> conversationHistory = new List<object>();
@@ -30,6 +32,7 @@ public partial class ProfessorAI : CharacterBody2D
 
         textProfesor.BbcodeEnabled = true;
         textProfesor.Clear();
+        OpenButton.Pressed += OpenChat;
         //chatPanel.Visible = false;
     }
 

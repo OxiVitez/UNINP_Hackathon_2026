@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dbdoaoewiifq8"]
+[gd_scene format=3 uid="uid://cgfd77ms5ixcn"]
 
 [ext_resource type="Script" uid="uid://c47chb3l8h3fm" path="res://Scene/Sobe/RoomManager.cs" id="1_4pysc"]
 [ext_resource type="Texture2D" uid="uid://dx3c2ymmpg1te" path="res://Asseti/VelikeScene/Sobe-export.png" id="2_jnhht"]
@@ -7,18 +7,23 @@
 [ext_resource type="Texture2D" uid="uid://te1mpqpg3f4b" path="res://Asseti/VelikeScene/Snimak ekrana 2026-04-25 100619.png" id="5_7jgxq"]
 [ext_resource type="PackedScene" uid="uid://bmfl5d444fgis" path="res://Scene/Karakteri/Igrac/karakterbaza.tscn" id="6_mbtd7"]
 [ext_resource type="Script" uid="uid://b6extaof65o4n" path="res://Scene/Sobe/PomeriKameru.cs" id="7_iuns6"]
-[ext_resource type="PackedScene" uid="uid://728cl3ytglh4" path="res://Scene/Sobe/biblioteka.tscn" id="8_rolnq"]
+[ext_resource type="PackedScene" path="res://Scene/Sobe/biblioteka.tscn" id="8_rolnq"]
 [ext_resource type="Texture2D" uid="uid://bm3v6argnxuxv" path="res://Asseti/VelikeScene/kindpng_5038483.png" id="9_6kosr"]
 [ext_resource type="Texture2D" uid="uid://bl3n5a26m5qf5" path="res://Asseti/VelikeScene/Snimak ekrana 2026-04-25 095907.png" id="9_p47hm"]
 [ext_resource type="Texture2D" uid="uid://gka1kyw7bl1q" path="res://Asseti/VelikeScene/germann.png" id="11_4pysc"]
 [ext_resource type="Texture2D" uid="uid://cvifvbv2uy8dg" path="res://Asseti/VelikeScene/Snimak ekrana 2026-04-25 095114.png" id="12_jnhht"]
 [ext_resource type="Texture2D" uid="uid://bgmk6f70bhrvl" path="res://Asseti/VelikeScene/Snimak ekrana 2026-04-25 095705.png" id="13_bb5b8"]
+[ext_resource type="Script" uid="uid://bspwvpj6dk8pw" path="res://Scene/Sobe/Area2d.cs" id="14_mluov"]
+[ext_resource type="PackedScene" uid="uid://b6cpw42ul5vrf" path="res://Scene/UI/frends_tab.tscn" id="15_346bo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tbncs"]
 size = Vector2(631, 46)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r0ljo"]
 size = Vector2(67, 76)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qrqrp"]
+size = Vector2(98.5, 118.5)
 
 [node name="SobaBaza" type="Node2D" unique_id=1083995744]
 script = ExtResource("1_4pysc")
@@ -80,6 +85,11 @@ position = Vector2(828.00006, 111.00001)
 scale = Vector2(0.399094, 0.35731128)
 texture = ExtResource("5_7jgxq")
 
+[node name="sto" type="Sprite2D" parent="." unique_id=966248752]
+position = Vector2(998, 5.687491)
+scale = Vector2(0.10572388, 0.10261662)
+texture = ExtResource("9_6kosr")
+
 [node name="Karakterbaza2" parent="." unique_id=623066995 instance=ExtResource("6_mbtd7")]
 position = Vector2(-169, 102)
 scale = Vector2(3, 3)
@@ -103,11 +113,6 @@ shape = SubResource("RectangleShape2D_r0ljo")
 [node name="biblioteka" parent="." unique_id=714134138 instance=ExtResource("8_rolnq")]
 position = Vector2(627, -8)
 
-[node name="sto" type="Sprite2D" parent="." unique_id=966248752]
-position = Vector2(998, 5.687491)
-scale = Vector2(0.10572388, 0.10261662)
-texture = ExtResource("9_6kosr")
-
 [node name="sto2" type="Sprite2D" parent="." unique_id=1015755067]
 position = Vector2(830, 8)
 scale = Vector2(0.08531388, 0.07336658)
@@ -127,3 +132,18 @@ texture = ExtResource("12_jnhht")
 position = Vector2(-236, 37.000004)
 scale = Vector2(0.08531388, 0.07336658)
 texture = ExtResource("13_bb5b8")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1839030322 node_paths=PackedStringArray("frendsTab")]
+script = ExtResource("14_mluov")
+frendsTab = NodePath("FrendsTab")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1484997965]
+position = Vector2(997.75, 45.75)
+shape = SubResource("RectangleShape2D_qrqrp")
+
+[node name="FrendsTab" parent="Area2D" unique_id=1093783735 instance=ExtResource("15_346bo")]
+visible = false
+offset_left = 954.0
+offset_top = -171.0
+offset_right = 954.0
+offset_bottom = -171.0

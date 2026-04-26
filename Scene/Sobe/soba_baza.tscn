@@ -6,12 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://cc3tev7gnvlai" path="res://Asseti/VelikeScene/NEBOPLAVO.png" id="3_tbncs"]
 [ext_resource type="PackedScene" uid="uid://bmfl5d444fgis" path="res://Scene/Karakteri/Igrac/karakterbaza.tscn" id="4_gp62x"]
 [ext_resource type="Script" uid="uid://b6extaof65o4n" path="res://Scene/Sobe/PomeriKameru.cs" id="6_r0ljo"]
-[ext_resource type="PackedScene" uid="uid://728cl3ytglh4" path="res://Scene/Sobe/biblioteka.tscn" id="7_oc0v2"]
+[ext_resource type="PackedScene" path="res://Scene/Sobe/biblioteka.tscn" id="7_oc0v2"]
 [ext_resource type="Texture2D" uid="uid://bm3v6argnxuxv" path="res://Asseti/VelikeScene/kindpng_5038483.png" id="8_lw4w1"]
-[ext_resource type="Texture2D" uid="uid://6stwvc114ofg" path="res://Asseti/VelikeScene/githubb.png" id="9_1tb0v"]
-[ext_resource type="Texture2D" uid="uid://c8alvqpnt5hf2" path="res://Asseti/Trofeji/cash.png" id="10_3slhy"]
-[ext_resource type="Texture2D" uid="uid://cnaohlvjs631e" path="res://Asseti/Trofeji/Gemini_Generated_Image_omay7zomay7zomay.png" id="11_ugot4"]
-[ext_resource type="Texture2D" uid="uid://dvmes54flsnq6" path="res://Asseti/Trofeji/program.png" id="12_ywkea"]
+[ext_resource type="Script" uid="uid://bspwvpj6dk8pw" path="res://Scene/Sobe/Area2d.cs" id="9_nqklq"]
+[ext_resource type="PackedScene" uid="uid://b6cpw42ul5vrf" path="res://Scene/UI/frends_tab.tscn" id="10_maeki"]
 [ext_resource type="Texture2D" uid="uid://b53xrtbgpar6q" path="res://Asseti/VelikeScene/Gemini_Generated_Image_11x9gi11x9gi11x9.png" id="13_ugot4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tbncs"]
@@ -19,6 +17,9 @@ size = Vector2(631, 46)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r0ljo"]
 size = Vector2(67, 76)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3slhy"]
+size = Vector2(98.5, 118.5)
 
 [node name="SobaBaza" type="Node2D" unique_id=1083995744]
 script = ExtResource("1_4r1sy")
@@ -80,6 +81,11 @@ position = Vector2(830, 109.00001)
 scale = Vector2(0.13190839, 0.119525045)
 texture = ExtResource("13_ugot4")
 
+[node name="sto" type="Sprite2D" parent="." unique_id=741059833]
+position = Vector2(998, 5.687491)
+scale = Vector2(0.10572388, 0.10261662)
+texture = ExtResource("8_lw4w1")
+
 [node name="Karakterbaza2" parent="." unique_id=623066995 instance=ExtResource("4_gp62x")]
 position = Vector2(-169, 102)
 scale = Vector2(3, 3)
@@ -103,3 +109,18 @@ shape = SubResource("RectangleShape2D_r0ljo")
 [node name="biblioteka" parent="." unique_id=714134138 node_paths=PackedStringArray("_exitDugmici") instance=ExtResource("7_oc0v2")]
 position = Vector2(627, -7)
 _exitDugmici = []
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1325914147 node_paths=PackedStringArray("frendsTab")]
+script = ExtResource("9_nqklq")
+frendsTab = NodePath("FrendsTab")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2107519572]
+position = Vector2(997.75, 45.75)
+shape = SubResource("RectangleShape2D_3slhy")
+
+[node name="FrendsTab" parent="Area2D" unique_id=1093783735 instance=ExtResource("10_maeki")]
+visible = false
+offset_left = 954.0
+offset_top = -171.0
+offset_right = 954.0
+offset_bottom = -171.0

@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dnylvtpffrtcf" path="res://Scene/UI/oglasna_tabla.tscn" id="3_6x5av"]
 [ext_resource type="Script" uid="uid://dadiiy1wvb1g5" path="res://Scene/UI/FadeIn.cs" id="4_34gma"]
 [ext_resource type="Script" uid="uid://bcy14efifu6gk" path="res://Scene/Sobe/StisniE.cs" id="4_ckuuw"]
+[ext_resource type="Script" uid="uid://bq6jc7q61xki2" path="res://Scene/Sobe/UdjiUsobu.cs" id="6_8l15f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aydu3"]
 size = Vector2(854, 46)
@@ -76,8 +77,77 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_nlgfy"]
 gradient = SubResource("Gradient_bwpwk")
 
+[sub_resource type="Animation" id="Animation_34gma"]
+resource_name = "FadeOut"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-643.66, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8l15f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-643.66, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8l15f"]
+_data = {
+&"FadeOut": SubResource("Animation_34gma"),
+&"RESET": SubResource("Animation_8l15f")
+}
+
+[sub_resource type="Gradient" id="Gradient_34gma"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8l15f"]
+gradient = SubResource("Gradient_34gma")
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6x5av"]
 size = Vector2(265, 44)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_34gma"]
+size = Vector2(61, 39)
 
 [node name="ODNIK" type="Node2D" unique_id=1428778700]
 
@@ -157,6 +227,21 @@ grow_vertical = 2
 scale = Vector2(1.351, 1.351)
 texture = SubResource("GradientTexture2D_nlgfy")
 
+[node name="FadeOut" type="AnimationPlayer" parent="CanvasLayer" unique_id=1991917473]
+libraries/ = SubResource("AnimationLibrary_8l15f")
+autoplay = &"FadeOut"
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=1989193281]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -643.66
+offset_right = -643.66
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_8l15f")
+
 [node name="StisniE" type="Area2D" parent="." unique_id=1769332441 node_paths=PackedStringArray("Canvas")]
 script = ExtResource("4_ckuuw")
 Canvas = NodePath("../CanvasLayer")
@@ -164,3 +249,11 @@ Canvas = NodePath("../CanvasLayer")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StisniE" unique_id=1703888995]
 position = Vector2(426.5, 196)
 shape = SubResource("RectangleShape2D_6x5av")
+
+[node name="UdjiUsobu" type="Area2D" parent="." unique_id=1519885776]
+position = Vector2(800, 200)
+script = ExtResource("6_8l15f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UdjiUsobu" unique_id=2132249236]
+position = Vector2(-16, -11)
+shape = SubResource("RectangleShape2D_34gma")

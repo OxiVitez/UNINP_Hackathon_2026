@@ -9,6 +9,11 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lc1xd"]
 size = Vector2(248, 55)
 
+[sub_resource type="LabelSettings" id="LabelSettings_oiae3"]
+font_size = 49
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+
 [node name="Area2D" type="Area2D" unique_id=331493262 node_paths=PackedStringArray("ShopUI", "JabkuaButton", "KruskaButton", "BananaButton", "SljivaButton")]
 script = ExtResource("1_oiae3")
 ShopUI = NodePath("CanvasLayer")
@@ -57,8 +62,7 @@ icon = ExtResource("4_u5erh")
 flat = true
 
 [node name="Zadatak" type="Label" parent="CanvasLayer" unique_id=2113602949]
-offset_left = 561.0
-offset_top = 4.0
-offset_right = 639.0
-offset_bottom = 27.0
+offset_right = 78.0
+offset_bottom = 23.0
 text = "Buy:Apple"
+label_settings = SubResource("LabelSettings_oiae3")

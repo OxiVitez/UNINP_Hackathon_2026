@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bcwacvgkb3qyu"]
 
 [ext_resource type="Texture2D" uid="uid://dica0j60m4m8r" path="res://Asseti/VelikeScene/Univerzitet.png" id="1_bcc6l"]
+[ext_resource type="Script" uid="uid://c5j04umuho2c8" path="res://Scene/KutScene/UvodnaCutScena1.cs" id="1_t0pvf"]
 [ext_resource type="Texture2D" uid="uid://b06fj0ln66f08" path="res://Asseti/Karakteri/Igrac/16x16 Walk Cycle-Sheet.png" id="2_kw8qd"]
 [ext_resource type="Texture2D" uid="uid://cj7edck31hoy7" path="res://Asseti/Karakteri/profesor/birdviewPorf.png" id="3_7pure"]
 [ext_resource type="Texture2D" uid="uid://c6wdxrobicut6" path="res://Asseti/Asseti/Emotes/bubble emotes july update.png" id="4_u1638"]
@@ -518,7 +519,76 @@ font_size = 73
 outline_size = 9
 outline_color = Color(0, 0, 0, 1)
 
-[node name="UvodnaCutScena1" type="Node2D" unique_id=980772965]
+[sub_resource type="Gradient" id="Gradient_krg65"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_t0pvf"]
+gradient = SubResource("Gradient_krg65")
+
+[sub_resource type="Animation" id="Animation_krg65"]
+resource_name = "FadeIn"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/TextureRect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.005444219),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/TextureRect:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-642.4, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_t0pvf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/TextureRect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/TextureRect:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-642.4, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n1xtj"]
+_data = {
+&"FadeIn": SubResource("Animation_krg65"),
+&"RESET": SubResource("Animation_t0pvf")
+}
+
+[node name="UvodnaCutScena1" type="Node2D" unique_id=980772965 node_paths=PackedStringArray("timer", "fideOut")]
+script = ExtResource("1_t0pvf")
+timer = NodePath("Timer")
+fideOut = NodePath("AnimationPlayer2")
 
 [node name="Pozadina" type="Sprite2D" parent="." unique_id=1832908640]
 position = Vector2(671, 391)
@@ -528,7 +598,7 @@ texture = ExtResource("1_bcc6l")
 position = Vector2(1037, 693)
 sprite_frames = SubResource("SpriteFrames_437wp")
 autoplay = "default"
-frame_progress = 0.5609543
+frame_progress = 0.0076839807
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=175449194]
 libraries/ = SubResource("AnimationLibrary_u1638")
@@ -589,3 +659,22 @@ label_settings = SubResource("LabelSettings_0tl4q")
 autowrap_mode = 3
 visible_characters = 0
 visible_ratio = 0.0
+
+[node name="Timer" type="Timer" parent="." unique_id=465658580]
+wait_time = 21.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1979164948]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=1449179649]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -642.4
+offset_right = -642.4
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_t0pvf")
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="." unique_id=410949754]
+libraries/ = SubResource("AnimationLibrary_n1xtj")

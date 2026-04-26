@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Nauc.io"
-run/main_scene="uid://30luomyv6vhi"
+run/main_scene="uid://bcwacvgkb3qyu"
 config/features=PackedStringArray("4.6", "C#", "Mobile")
 config/icon="res://icon.svg"
 

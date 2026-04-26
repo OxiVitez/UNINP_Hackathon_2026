@@ -86,8 +86,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=791271058]
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=791271058 node_paths=PackedStringArray("OpenButton")]
 script = ExtResource("1_5n0ik")
+OpenButton = NodePath("CanvasLayer/Button")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1236575779]
 position = Vector2(560, 269)
@@ -98,6 +99,7 @@ shape = SubResource("RectangleShape2D_yx0hs")
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=498719203]
 
 [node name="ChatPanel" type="Control" parent="CanvasLayer" unique_id=1534521102]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 288.0
@@ -189,6 +191,15 @@ offset_top = 4.887581e-05
 offset_right = 65.97403
 offset_bottom = 23.00005
 text = "Send"
+
+[node name="Button" type="Button" parent="CanvasLayer" unique_id=706439772]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+text = "Pitaj profu"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=705779682]
 position = Vector2(319, 180.99998)
